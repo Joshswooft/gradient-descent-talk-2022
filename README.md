@@ -1,6 +1,6 @@
 # Gradient Descent
 
-## Intro
+## Description
 This project explores how we can use supervised learning to solve a regression problem; predict the sale price of a house given a particular age. The algorithm chosen here is gradient descent with univariant linear regression as a base model. 
 
 ## Common Terms
@@ -13,4 +13,16 @@ Supervised learning is when you give the computer all the input, output pairs fo
 Regression problem - Predicting continuous values
 
 
+## Getting Started
+
+To install dependencies we use yarn:
+```
+yarn install
+```
+
+Starting locally:
+
+```
+yarn dev
+```
 
