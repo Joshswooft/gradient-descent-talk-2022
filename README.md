@@ -1,7 +1,7 @@
 # Gradient Descent
 
 ## Description
-This project explores how we can use supervised learning to solve a regression problem; predict the sale price of a house given a particular age. The algorithm chosen here is gradient descent with univariant linear regression as a base model. 
+This project explores how we can use supervised learning to solve a regression problem; predict the sale price of a house given a particular age. The algorithm chosen here is gradient descent with univariant linear regression using the mean squared error as the cost function.
 
 ## Common Terms
 Gradient Descent is a machine learning algorithm which is used to find the local minima (or global minima in convex functions) of a given cost function. 
@@ -51,9 +51,12 @@ Here's the gist:
 
 - [X] Convert csv data to json
 - [X] Setup a simple server for client to retrieve data
-- [ ] Plot the data onto a scatter diagram
+- [X] Plot the data onto a scatter diagram
 - [ ] Calculate linear regression and plot the line on scatter diagram
 - [ ] Enable controls for adjusting the parameters of the line
 - [ ] Contour plot of the error
 - [ ] Gradient descent algorithm
 - [ ] Visualise the steps of GD alg
+
+
+![mean square error](https://images.squarespace-cdn.com/content/v1/5eeae1506bdf6661fc47e928/1603773819214-35PELAZY56BUMPNHZI1B/image-asset.png?format=1500w)
