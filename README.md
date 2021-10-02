@@ -46,3 +46,14 @@ Here's the gist:
 * Easier to setup a development environment.
 * Tests across modules are ran together which finds bugs that touch multiple modules easier.
 
+## TODO:
+
+
+- [X] Convert csv data to json
+- [X] Setup a simple server for client to retrieve data
+- [ ] Plot the data onto a scatter diagram
+- [ ] Calculate linear regression and plot the line on scatter diagram
+- [ ] Enable controls for adjusting the parameters of the line
+- [ ] Contour plot of the error
+- [ ] Gradient descent algorithm
+- [ ] Visualise the steps of GD alg
