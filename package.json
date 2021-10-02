@@ -1,12 +1,17 @@
 {
   "name": "gradient-descent",
-  "version": "0.0.0",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "git@github.com-personal:Joshswooft/gradient-descent.git",
+  "license": "MIT",
+  "private": "true",
   "scripts": {
-    "dev": "vite",
-    "build": "vite build",
-    "serve": "vite preview"
+    "postinstall": "lerna bootstrap"
   },
   "devDependencies": {
-    "vite": "^2.6.0"
+    "lerna": "^4.0.0"
+  },
+  "workspaces": {
+    "packages": ["packages/*"]
   }
 }

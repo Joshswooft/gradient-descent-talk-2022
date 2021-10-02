@@ -13,6 +13,7 @@ Supervised learning is when you give the computer all the input, output pairs fo
 Regression problem - Predicting continuous values
 
 
+
 ## Getting Started
 
 To install dependencies we use yarn:
@@ -20,9 +21,28 @@ To install dependencies we use yarn:
 yarn install
 ```
 
-Starting locally:
+### Starting locally:
 
+To start the server: 
 ```
-yarn dev
+yarn workspace server dev
 ```
+
+To start the app:
+```
+yarn workspace app dev
+```
+
+### Lerna
+First off, What is [`lerna`](https://github.com/lerna/lerna)? [`lerna`](https://github.com/lerna/lerna) is a tool that allows you to maintain multiple `npm` packages within one repository.
+
+There's a couple of benefits to this kind of approach, the paradigm is called a `monorepo`, and more can be read about it from the [source of `babel`, and `react`](https://github.com/babel/babel/blob/master/doc/design/monorepo.md).
+
+Here's the gist:
+
+* Single lint, build, test and release process.
+* Easy to coordinate changes across modules.
+* Single place to report issues.
+* Easier to setup a development environment.
+* Tests across modules are ran together which finds bugs that touch multiple modules easier.
 

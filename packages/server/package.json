@@ -1,0 +1,16 @@
+{
+  "name": "server",
+  "version": "1.0.0",
+  "main": "src/index.js",
+  "license": "MIT",
+  "type": "module",
+  "scripts": {
+    "dev": "json-server ../../data/real_estate.json --read-only -p 8080",
+    "csv2json": "csvtojson ../../data/real_estate.csv > ../../data/real_estate.json"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "csvtojson": "^2.0.10",
+    "json-server": "^0.16.3"
+  }
+}
