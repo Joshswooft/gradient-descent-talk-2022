@@ -52,10 +52,11 @@ Here's the gist:
 - [X] Convert csv data to json
 - [X] Setup a simple server for client to retrieve data
 - [X] Plot the data onto a scatter diagram
-- [ ] Calculate linear regression and plot the line on scatter diagram
+- [X] Plot the hypothesis line
+- [X] Calculate cost function
+- [ ] Gradient descent algorithm
 - [ ] Enable controls for adjusting the parameters of the line
 - [ ] Contour plot of the error
-- [ ] Gradient descent algorithm
 - [ ] Visualise the steps of GD alg
 
 
