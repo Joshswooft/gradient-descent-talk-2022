@@ -2,7 +2,7 @@ import meanSquareError from "../utils/mse";
 
 export default async function plotScatterDiagram(id, url) {
   // set the dimensions and margins of the graph
-  const margin = { top: 10, right: 130, bottom: 30, left: 60 },
+  const margin = { top: 10, right: 130, bottom: 50, left: 60 },
     width = 800 - margin.left - margin.right,
     height = 400 - margin.top - margin.bottom;
 
@@ -110,4 +110,24 @@ export default async function plotScatterDiagram(id, url) {
       .attr("fill", hypothesisLineColor)
       .style("font-size", 15);
   });
+
+  // Add x and y legends
+  svg
+    .append("text")
+    .attr("class", "x-label")
+    .attr(
+      "transform",
+      "translate(" + width / 2 + " ," + (height + margin.top + 30) + ")"
+    )
+    .style("text-anchor", "middle")
+    .text("Age (years)");
+
+  svg
+    .append("text")
+    .attr("transform", "rotate(-90)")
+    .attr("y", 0 - margin.left)
+    .attr("x", 0 - height / 2)
+    .attr("dy", "1em")
+    .style("text-anchor", "middle")
+    .text("House price (k)");
 }
