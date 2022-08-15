@@ -52,7 +52,7 @@ export default async function plotScatterDiagram(id, url) {
         return x(d[featureName]);
       })
       .attr("cy", function (d) {
-        return y(d["Y house price of unit area"]);
+        return y(d[yName]);
       })
       .attr("r", 1.5)
       .style("fill", dotColor);

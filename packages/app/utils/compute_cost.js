@@ -1,8 +1,10 @@
 import meanSquareError from "./mse";
-import math from "mathjs";
+import { multiply } from "mathjs";
+import { hypothesis } from "./hypothesis";
 
 export default function computeCost(X, y, theta, costFn = meanSquareError) {
-  // h is our hypothesis i.e. predicted y value
-  const h = math.multiply(X, theta);
+  const h = hypothesis(X, theta);
+  // console.log("hypo: ", hypothesis._data);
+  // console.log("y: ", y._values);
   return costFn(h, y);
 }
