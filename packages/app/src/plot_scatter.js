@@ -1,4 +1,5 @@
 import meanSquareError from "../utils/mse";
+import { sparse } from "mathjs";
 
 export default async function plotScatterDiagram(id, url) {
   // set the dimensions and margins of the graph
@@ -69,7 +70,7 @@ export default async function plotScatterDiagram(id, url) {
     const y_intercept = 20;
     const y_hats = data.map((x) => parseFloat(x[featureName]) + y_intercept);
     console.log("y_hats: ", y_hats);
-    const err = meanSquareError(y_hats, ys);
+    const err = meanSquareError(sparse(y_hats), sparse(ys));
     console.log("MSE: ", err);
 
     const hypothesisData = data.map((x, i) => ({
