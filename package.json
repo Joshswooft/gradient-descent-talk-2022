@@ -13,6 +13,6 @@
   },
   "useWorkspaces": true,
   "workspaces": [
-      "packages/*"
+    "packages/*"
   ]
 }

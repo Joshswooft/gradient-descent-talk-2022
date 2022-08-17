@@ -13,6 +13,7 @@
     "vitest": "^0.21.1"
   },
   "dependencies": {
-    "mathjs": "^11.0.1"
+    "mathjs": "^11.0.1",
+    "plotly.js-dist-min": "^2.14.0"
   }
 }
