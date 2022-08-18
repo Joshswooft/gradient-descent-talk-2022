@@ -1,9 +1,9 @@
-import meanSquareError from "../utils/mse";
+import meanSquareError from "./utils/mse";
 import { sparse } from "mathjs";
-import { hypothesis } from "../utils/hypothesis";
+import { hypothesis } from "./utils/hypothesis";
 import { matrix, zeros, ones, transpose } from "mathjs";
-import { omit } from "../utils/omit";
-import gradientDescent from "../utils/gradient_descent";
+import { omit } from "./utils/omit";
+import gradientDescent from "./utils/gradient_descent";
 import plotLearningGraph from "./plot_learning_graph";
 
 const LEARNING_RATE = 0.0001;
@@ -85,7 +85,7 @@ export default async function plotScatterDiagram(id, url) {
     const err = meanSquareError(sparse(y_hats), sparse(ys));
     console.log("MSE: ", err);
 
-    plotLearningGraph(Jerror);
+    plotLearningGraph("learning_plot", Jerror);
 
     let hypothesisData = data.map((x, i) => ({
       x: parseFloat(x[featureName]),

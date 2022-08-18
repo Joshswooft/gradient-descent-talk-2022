@@ -1,4 +1,4 @@
-export default function plotLearningGraph(errors) {
+export default function plotLearningGraph(id, errors) {
   const data = errors.map((e, i) => ({ x: i, y: e }));
   const x_legend = "Number of iterations";
   const y_legend = "Cost J";
@@ -12,7 +12,7 @@ export default function plotLearningGraph(errors) {
 
   // append the svg object to the body of the page
   const svg = d3
-    .select("#learning_plot")
+    .select("#" + id)
     .append("svg")
     .attr("width", width + margin.left + margin.right)
     .attr("height", height + margin.top + margin.bottom)

@@ -1,6 +1,6 @@
 import { expect, test } from "vitest";
 import meanSquareError from "./mse";
-import testdata from "../../../data/testdata.json";
+import testdata from "../../../../data/testdata.json";
 import gradientDescent from "./gradient_descent";
 import { matrix, ones, transpose, zeros } from "mathjs";
 
