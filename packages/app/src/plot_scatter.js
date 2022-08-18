@@ -1,5 +1,12 @@
 import meanSquareError from "../utils/mse";
 import { sparse } from "mathjs";
+import { hypothesis } from "../utils/hypothesis";
+import { matrix, zeros, ones, transpose } from "mathjs";
+import { omit } from "../utils/omit";
+import gradientDescent from "../utils/gradient_descent";
+import plotLearningGraph from "./plot_learning_graph";
+
+const LEARNING_RATE = 0.0001;
 
 export default async function plotScatterDiagram(id, url) {
   // set the dimensions and margins of the graph
@@ -57,26 +64,37 @@ export default async function plotScatterDiagram(id, url) {
       })
       .attr("r", 1.5)
       .style("fill", dotColor);
+
     // Add the regression line
-    // linear line
-    // const hypothesisData = [{ x: 0, y: height}, { x: width, y: 0}];
+    const num_training = data.length;
+    let X = matrix([ones(num_training), data.map((d) => d[featureName])]);
+    X = transpose(X);
 
-    // TODO: calculate the error for the hypothesis using mse
-    // y = mx + c
-    // using one variable atm so h(x) = theta_0 + theta_1*x
-    // theta = params, x = features, n = number of samples
-    // h(x) = theta_0 + theta_1*x + theta_2*x_2 + ... + theta_n * x_n
+    let theta = zeros(X.size()[1], 1);
 
-    const y_intercept = 20;
-    const y_hats = data.map((x) => parseFloat(x[featureName]) + y_intercept);
-    console.log("y_hats: ", y_hats);
+    let { t, Jerror } = gradientDescent(
+      X,
+      sparse(ys),
+      theta,
+      LEARNING_RATE,
+      100
+    );
+
+    const predictions = hypothesis(X, t);
+    const y_hats = predictions.toArray();
     const err = meanSquareError(sparse(y_hats), sparse(ys));
     console.log("MSE: ", err);
 
-    const hypothesisData = data.map((x, i) => ({
-      x: x[featureName],
-      y: y_hats[i],
+    plotLearningGraph(Jerror);
+
+    let hypothesisData = data.map((x, i) => ({
+      x: parseFloat(x[featureName]),
+      y: y_hats[i][0],
     }));
+
+    hypothesisData.sort((a, b) => b.x - a.x);
+
+    const hypothesisLine = hypothesisData;
 
     const lineFunc = d3
       .line()
@@ -85,8 +103,8 @@ export default async function plotScatterDiagram(id, url) {
 
     svg
       .append("path")
-      .datum(hypothesisData)
-      .attr("d", lineFunc(hypothesisData))
+      .datum(hypothesisLine)
+      .attr("d", lineFunc(hypothesisLine))
       .attr("stroke", hypothesisLineColor)
       .attr("fill", "none")
       .attr("id", "hypothesis-line");
