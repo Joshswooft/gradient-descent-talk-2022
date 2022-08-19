@@ -2,6 +2,7 @@ import "./style.css";
 import plotScatterDiagram from "./src/plot_scatter";
 import contourPlotExample from "./src/examples/contour_plot";
 import gradientDescentMultiExample from "./src/examples/gradient_descent_multi";
+import { init } from "mathjax";
 
 document.querySelector("#app").innerHTML = `
   <h1>Introduction to Machine Learning</h1>
@@ -13,6 +14,8 @@ document.querySelector("#app").innerHTML = `
   <div id="learning_plot"></div>
   <div id="contour_plot_ex1"></div>
 `;
+
+init();
 
 async function main() {
   // TODO: move endpoint to .env

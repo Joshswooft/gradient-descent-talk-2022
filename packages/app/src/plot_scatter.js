@@ -2,7 +2,6 @@ import meanSquareError from "./utils/mse";
 import { sparse } from "mathjs";
 import { hypothesis } from "./utils/hypothesis";
 import { matrix, zeros, ones, transpose } from "mathjs";
-import { omit } from "./utils/omit";
 import gradientDescent from "./utils/gradient_descent";
 import plotLearningGraph from "./plot_learning_graph";
 

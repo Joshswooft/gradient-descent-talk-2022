@@ -1,6 +1,31 @@
 <!DOCTYPE html>
 <html>
+  <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
   <body>
     <h1>The basics</h1>
+    <p>Lets start off with some of the basics - with a straight line graph!</p>
+    <p>$$y = mx + c $$</p>
+    <ul>
+      <li>'m' is the gradient or steepness of the line</li>
+      <li>
+        'c' is known as the y-intercept or where the line crosses the y-axis.
+      </li>
+    </ul>
+    <section>
+      <div id="line_graph1"></div>
+      <div id="controls">
+        <div class="slider">
+          <input id="gradient-slider" type="range" min="0" max="5" value="2" />
+          <input
+            id="y-intercept-slider"
+            type="range"
+            min="0"
+            max="5"
+            value="1"
+          />
+        </div>
+      </div>
+    </section>
+    <script type="module" src="./basics.js"></script>
   </body>
 </html>
