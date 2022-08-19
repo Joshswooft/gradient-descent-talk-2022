@@ -154,8 +154,11 @@ function plotLineGraph(id, x, y, dotColor = "red", lineColor = "blue") {
     })
     .style("fill", dotColor)
     .transition()
-    .duration(750)
-    .delay(200)
+    .duration(1400)
+    .ease(d3.easeCubicOut)
+    .delay(function (d, i) {
+      return i * 160;
+    })
     .attr("r", 5);
 
   const lineFunc = d3
@@ -176,6 +179,7 @@ function plotLineGraph(id, x, y, dotColor = "red", lineColor = "blue") {
     .attr("stroke", lineColor)
     .attr("id", "hypothesis-line")
     .transition()
+    .ease(d3.easeLinear)
     .duration(2000)
     .attr("stroke-dashoffset", 0);
 }
