@@ -9,7 +9,6 @@ function random(x) {
 }
 
 function updatePlot(id, x, y, xAxisScale, yAxisScale) {
-  console.log("updated y: ", y);
   let svg = d3.select(`#${id} svg`).selectChild("g");
 
   let data = [];
@@ -31,8 +30,6 @@ function updatePlot(id, x, y, xAxisScale, yAxisScale) {
     .selectChildren()
     .nodes()
     .map((n) => n.__data__);
-
-  console.log("old data: ", oldData);
 
   // updates the dots
   dotsSelection.join(
@@ -79,6 +76,15 @@ function updatePlot(id, x, y, xAxisScale, yAxisScale) {
   );
 
   //   TODO: update the line
+
+  const line = d3.select("#hypothesis-line");
+
+  const lineFunc = d3
+    .line()
+    .x((d) => xAxisScale(d.x))
+    .y((d) => yAxisScale(d.y));
+
+  line.datum(data).transition(t).attr("d", lineFunc(data));
 }
 
 function plotLineGraph(id, x, y, dotColor = "red", lineColor = "blue") {
