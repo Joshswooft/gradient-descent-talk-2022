@@ -4,6 +4,10 @@ const margin = { top: 10, right: 130, bottom: 50, left: 60 },
   width = 800 - margin.left - margin.right,
   height = 400 - margin.top - margin.bottom;
 
+function random(x) {
+  return Math.floor(Math.random() * x);
+}
+
 function updatePlot(id, x, y, xAxisScale, yAxisScale) {
   console.log("updated y: ", y);
   let svg = d3.select(`#${id} svg`).selectChild("g");
@@ -45,24 +49,29 @@ function updatePlot(id, x, y, xAxisScale, yAxisScale) {
             return yAxisScale(d.y);
           })
         )
-        .style("fill", "green")
+        .style("fill", "gray")
         //   .merge(dotsSelection)
         .selection(),
     (update) =>
       update
         .transition(t)
-        .style("fill", "green")
+        .delay(function (d, i) {
+          return i * 50;
+        })
+        .attr("r", 4)
+        .style("fill", "gray")
         .attr("cy", function (d) {
           const oldXData = oldData.find((dd) => dd.x == d.x);
-          console.log("oldx: ", oldXData, typeof oldData);
           let oldY = 0;
           if (typeof oldXData !== "undefined") {
             oldY = oldXData.y;
           }
-          console.log("old y: ", oldY);
           return yAxisScale(oldY);
-        }),
-
+        })
+        .transition()
+        .duration(500)
+        .style("fill", "red")
+        .attr("r", 5),
     (exit) =>
       exit.call((e) =>
         e.transition(t).style("fill", "grey").style("opacity", 0).remove()
@@ -137,8 +146,11 @@ function plotLineGraph(id, x, y, dotColor = "red", lineColor = "blue") {
     .attr("cy", function (d) {
       return yAxisScale(d.y);
     })
-    .attr("r", 5)
-    .style("fill", dotColor);
+    .style("fill", dotColor)
+    .transition()
+    .duration(750)
+    .delay(200)
+    .attr("r", 5);
 
   const lineFunc = d3
     .line()
