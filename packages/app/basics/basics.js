@@ -163,10 +163,15 @@ function plotLineGraph(id, x, y, dotColor = "red", lineColor = "blue") {
   svg
     .append("path")
     .datum(data)
+    .attr("stroke-dasharray", "1000 1000")
+    .attr("stroke-dashoffset", "1000")
     .attr("d", lineFunc(data))
     .attr("fill", "none")
     .attr("stroke", lineColor)
-    .attr("id", "hypothesis-line");
+    .attr("id", "hypothesis-line")
+    .transition()
+    .duration(2000)
+    .attr("stroke-dashoffset", 0);
 }
 
 function createHypothesis(m, x, c) {
