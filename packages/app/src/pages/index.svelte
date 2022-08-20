@@ -19,6 +19,8 @@
   <h2>Linear Regression</h2>
   <nav>
     <a href="/basics" use:link>Learn the basics</a>
+    <a href="/costfunction/" use:link>Mean Square Error</a>
+    <a href="/gradientdescent/" use:link>Gradient Descent</a>
   </nav>
   <div id="scatter_plot" />
   <div id="learning_plot" />
