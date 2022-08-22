@@ -71,14 +71,16 @@
     <ParallaxLayer offset={2} span={1} rate={0.5} let:progress>
       <div style="opacity: {progress * 3};">
         <h1 class="why-maths mb-16 mt-8 text-white">Why do we need maths?</h1>
-        <ul>
-          <li>Be able to debug problems easier</li>
-          <li>Understand how to tune models for greater performance/speed</li>
-          <li>Being able to interpret results</li>
-          <li>
-            Gain an intuition on more complicated machine learning algorithmns
-          </li>
-        </ul>
+        <div class="flex justify-center">
+          <ul class="flex gap-8 flex-col text-left list-disc">
+            <li>Be able to debug problems easier</li>
+            <li>Understand how to tune models for greater performance/speed</li>
+            <li>Being able to interpret results</li>
+            <li>
+              Gain an intuition on more complicated machine learning algorithmns
+            </li>
+          </ul>
+        </div>
       </div>
     </ParallaxLayer>
     <!-- <div id="scatter_plot" />
