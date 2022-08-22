@@ -1,13 +1,30 @@
 html, body, canvas {
   height: 100%;
   width: 100%;
+  margin: 0;
 }
 
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
+  font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
+}
+
+#sub-title {
+  display: block;
+  font-size: 0.8em;
+  font-weight: bold;
+  color: #999;
+  text-transform: uppercase;
+  letter-spacing: 0.3em;
+  margin-bottom: 1em;
+}
+
+#app h1 {
+  font-weight: 300;
+  color: #000;
+  letter-spacing: -0.02em;
+  font-size: 3em;
 }

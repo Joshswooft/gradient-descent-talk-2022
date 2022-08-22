@@ -29,6 +29,7 @@
     "mathjax": "3",
     "mathjs": "^11.0.1",
     "plotly.js-dist-min": "^2.14.0",
+    "svelte-parallax": "^0.6.0",
     "svelte-spa-router": "^3.3.0"
   }
 }
