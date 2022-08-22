@@ -6,7 +6,7 @@
   "type": "module",
   "scripts": {
     "dev": "json-server ../../data/real_estate.json --read-only -p 8080",
-    "csv2json": "csvtojson ../../data/real_estate.csv > ../../data/real_estate.json"
+    "csv2json": "csvtojson ../../data/real_estate.csv > ../../data/real_estate.json && jq '{\"data\": . }' ../../data/real_estate.json > tmp.json && mv tmp.json ../../data/real_estate.json"
   },
   "dependencies": {},
   "devDependencies": {
