@@ -23,7 +23,7 @@
   let parallax;
   const parallaxConfig = { stiffness: 0.2, damping: 0.3 };
 
-  let bgImage = `background-image: url("${PexelLight}")`;
+  let visible = true;
 </script>
 
 <main>
@@ -41,16 +41,22 @@
             <a href="/gradientdescent/" use:link>Gradient Descent</a>
           </nav>
         </div>
-        <button
-          class={"absolute bottom-5"}
-          in:fly
-          on:click={() =>
-            parallax.scrollTo(4, {
-              selector: ".why-maths",
-              duration: 6000,
-              easing: sineOut,
-            })}>Click me</button
-        >
+        {#if visible}
+          <button
+            class={"absolute bottom-5"}
+            in:fly
+            out:fade
+            on:click={() => {
+              visible = false;
+
+              parallax.scrollTo(4, {
+                selector: ".why-maths",
+                duration: 6000,
+                easing: sineOut,
+              });
+            }}>Click me</button
+          >
+        {/if}
       </div>
     </ParallaxLayer>
     <ParallaxLayer

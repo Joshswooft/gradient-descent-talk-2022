@@ -1,1 +1,6 @@
-<h1>Gradient Descent</h1>
+<script>
+  import VisualizeGradDesc from "../components/VisualizeGradDesc.svelte";
+</script>
+
+<h1>gradientdescent</h1>
+<VisualizeGradDesc />
