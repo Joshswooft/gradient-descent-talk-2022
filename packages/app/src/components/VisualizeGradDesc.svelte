@@ -3,7 +3,6 @@
   import { tweened } from "svelte/motion";
   import { cubicOut } from "svelte/easing";
   import * as d3 from "https://cdn.skypack.dev/d3@7";
-  import { fromJSON } from "postcss";
 
   //   y = (x - 20)^2 + c
   const y = (x, c) => (x - 20) * (x - 20) + c;
@@ -31,6 +30,7 @@
   function reset() {
     value.set(startY, { duration: 0 });
     time.set(startX, { duration: 0 });
+    iterations = 0;
   }
 
   // TODO: plot the curved line on the graph
@@ -57,36 +57,60 @@
   console.log("line: ", line_gen);
 
   function interpolate(a: number, b: number): (t: number) => number {
-    console.log("from: ", a, "to: ", b);
     return (t: number) => a * (1 - t) + b * t;
   }
+
+  let iterations = 0;
 
   async function runAnimation() {
     console.log("run!");
 
-    reset();
+    // kind of a hacky way of animating as it goes through each point in time and draws straight line
+    while (iterations < data.length) {
+      const d = data[iterations];
+      await Promise.all([
+        value.set(yScale(d.y), {
+          duration: 200,
+          interpolate: interpolate,
+          // easing: cubicOut,
+        }),
+        time.set(xScale(d.x), {
+          duration: 200,
+          interpolate: interpolate,
+          // easing: cubicOut,
+        }),
+      ]);
+      iterations++;
+    }
 
-    await Promise.all([
-      // https://svelte.dev/tutorial/tweened
-      //   TODO: create the correct movement animation
-      value.set(yScale(y(30, c)), {
-        duration: 4000,
-        interpolate: interpolate,
-        // easing: cubicOut,
-      }),
-      time.set(xScale(30), {
-        duration: 4000,
-        interpolate: interpolate,
-        // easing: cubicOut,
-      }),
-    ]);
+    // await Promise.all(
+    //   data.map((d) => [
+    //     // https://svelte.dev/tutorial/tweened
+    //     //   TODO: create the correct movement animation
+    //     value.set(yScale(d.y), {
+    //       duration: 4000,
+    //       interpolate: interpolate,
+    //       // easing: cubicOut,
+    //     }),
+    //     time.set(xScale(d.x), {
+    //       duration: 4000,
+    //       interpolate: interpolate,
+    //       // easing: cubicOut,
+    //     }),
+    //   ])
+    // );
   }
 
   runAnimation();
+
+  function playFromStart() {
+    reset();
+    runAnimation();
+  }
 </script>
 
 <div>
-  <button on:click={runAnimation}>Run</button>
+  <button on:click={playFromStart}>Run</button>
   <svg viewBox="0 0 1400 1802" class="svg-grid" {width} {height}>
     <g class="canvas">
       <Grid x={$time} y={$value} />
