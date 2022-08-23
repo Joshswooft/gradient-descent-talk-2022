@@ -43,6 +43,8 @@
     { x: 10, y: y(10, c) },
     { x: 20, y: y(20, c) },
     { x: 30, y: y(30, c) },
+    { x: 40, y: y(40, c) },
+    { x: 50, y: y(50, c) },
   ];
 
   console.log("width: ", width);
@@ -68,6 +70,10 @@
     // kind of a hacky way of animating as it goes through each point in time and draws straight line
     while (iterations < data.length) {
       const d = data[iterations];
+
+      const grad = dy(d.x);
+      console.log("grad: ", grad);
+
       await Promise.all([
         value.set(yScale(d.y), {
           duration: 200,
@@ -80,6 +86,10 @@
           // easing: cubicOut,
         }),
       ]);
+      //   found the min point - stop the animation!
+      if (grad == 0) {
+        iterations = data.length;
+      }
       iterations++;
     }
 
@@ -133,6 +143,7 @@
     display: inline-block;
     width: 500px;
     height: 500px;
+    margin-top: 2em;
   }
   .graph {
     /* this is needed to move the circle to the point where the red lines intersect */
