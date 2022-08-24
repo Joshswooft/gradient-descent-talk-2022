@@ -33,8 +33,6 @@
     iterations = 0;
   }
 
-  // TODO: plot the curved line on the graph
-
   const data = [
     { x: -30, y: y(-30, c) },
     { x: -20, y: y(-20, c) },
@@ -67,12 +65,11 @@
   async function runAnimation() {
     console.log("run!");
 
-    // kind of a hacky way of animating as it goes through each point in time and draws straight line
+    // kind of a hacky way of animating as it goes through each point and draws straight line
     while (iterations < data.length) {
       const d = data[iterations];
 
       const grad = dy(d.x);
-      console.log("grad: ", grad);
 
       await Promise.all([
         value.set(yScale(d.y), {
@@ -87,28 +84,12 @@
         }),
       ]);
       //   found the min point - stop the animation!
+      //   note: this only works because we chose our x-values carefully :)
       if (grad == 0) {
         iterations = data.length;
       }
       iterations++;
     }
-
-    // await Promise.all(
-    //   data.map((d) => [
-    //     // https://svelte.dev/tutorial/tweened
-    //     //   TODO: create the correct movement animation
-    //     value.set(yScale(d.y), {
-    //       duration: 4000,
-    //       interpolate: interpolate,
-    //       // easing: cubicOut,
-    //     }),
-    //     time.set(xScale(d.x), {
-    //       duration: 4000,
-    //       interpolate: interpolate,
-    //       // easing: cubicOut,
-    //     }),
-    //   ])
-    // );
   }
 
   runAnimation();
