@@ -251,6 +251,7 @@
     Linear regression fits a straight line that minimises the errors between the
     predicted values and the actual values.
   </p>
+  <p><b>Regression problem: </b> Predicting continuous values</p>
   <p>
     An example of linear regression: Trying to predict how much a house costs
     based on its age.
