@@ -347,4 +347,12 @@
       multicollinearity is not a problem.
     </li>
   </ul>
+  <h2>Linear Regression equation</h2>
+  <p>For simple linear regression: $$ h(x) = \theta_0 + \theta_1x_1 $$</p>
+  <p>
+    For multivariate linear regression: $$ h(x) = \theta_0 + \theta_1x_1 +
+    \theta_2x_2 + ... + \theta_nx_n $$
+  </p>
+  <p>Note: we use \(x_0 = 1\) for notation.</p>
+  <p>θ=Parameters, x=features</p>
 </section>
