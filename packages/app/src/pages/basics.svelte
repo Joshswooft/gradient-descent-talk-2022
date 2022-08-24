@@ -262,12 +262,19 @@
       relationship between time spent in the gym and muscle mass gained.
     </li>
     <li>
-      Forecasting an effect e.g. If I study for 20 hours on this exam, what will
-      my grade be?
+      Forecasting an effect e.g. If I study for 20 hours on this exam, what is
+      my predicted grade?
     </li>
     <li>
       Trend forecasting e.g. What will the price of bitcoin be in 6 months?
     </li>
+  </ul>
+
+  <p>Linear Regression has many real world uses like:</p>
+  <ul>
+    <li>Financial forecasting</li>
+    <li>Weather analysis</li>
+    <li>Medical diagnosis</li>
   </ul>
 
   <h2>Problems with Linear Regression</h2>

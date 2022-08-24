@@ -92,8 +92,6 @@
     }
   }
 
-  runAnimation();
-
   function playFromStart() {
     reset();
     runAnimation();
