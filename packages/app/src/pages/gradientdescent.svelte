@@ -34,8 +34,12 @@
   </p>
   <p>The solution here is to use some maths!</p>
   <p>All we need to do is follow the slope to the lowest point!</p>
-  <p>You might remember from school that to calculate the slope we do:</p>
+  <p>
+    You might remember from school that to calculate the <b>average</b> slope we
+    do:
+  </p>
   <p>$$slope = change \: in \: y / change \: in \: x = \Delta y /\Delta x$$</p>
+  <p>$$ slope = (y_2 - y_1) / (x_2 - x_1) $$</p>
   <p>
     If we look at the above graph again you will notice that the gradient or
     slope of the line is practically 0 at the lowest point! Unfortantely
