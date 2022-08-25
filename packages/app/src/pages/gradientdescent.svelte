@@ -1,6 +1,6 @@
 <script>
   import VisualizeGradDesc from "../components/VisualizeGradDesc.svelte";
-  import { modifiedMse } from "../utils/equations";
+  import { chainRule, modifiedMse, powerRule } from "../utils/equations";
   import {
     gradientDescentAlg,
     simpleLinearRegression,
@@ -161,4 +161,15 @@
     notice we are using the modified MSE with the 2n term which is going to
     become clear pretty soon on why we do that.
   </p>
+  <div>
+    <p>Derivative Rules</p>
+    <ul>
+      <li>The power rule: \({powerRule}\)</li>
+      <li>Constant: \(f(x) = c, f'(x) = 0\)</li>
+      <li>Line: \(f(x) = x, f'(x) = 1\)</li>
+      <li>Multiplication by constant: \( cf => cf' \)</li>
+      <li>Sum rule: \( f + g => f' + g' \)</li>
+      <li>Chain rule: \({chainRule} \)</li>
+    </ul>
+  </div>
 </section>
