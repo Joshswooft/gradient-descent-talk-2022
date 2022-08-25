@@ -2,6 +2,10 @@
   import { onMount } from "svelte";
   // @ts-ignore
   import * as d3 from "https://cdn.skypack.dev/d3@7";
+  import {
+    simpleLinearRegression,
+    multiVariableLinearRegression,
+  } from "../utils/equations";
 
   const margin = { top: 10, right: 130, bottom: 50, left: 60 },
     width = 800 - margin.left - margin.right,
@@ -348,10 +352,9 @@
     </li>
   </ul>
   <h2>Linear Regression equation</h2>
-  <p>For simple linear regression: $$ h(x) = \theta_0 + \theta_1x_1 $$</p>
+  <p>For simple linear regression: \({simpleLinearRegression}\)</p>
   <p>
-    For multivariate linear regression: $$ h(x) = \theta_0 + \theta_1x_1 +
-    \theta_2x_2 + ... + \theta_nx_n $$
+    For multivariate linear regression: \({multiVariableLinearRegression}\)
   </p>
   <p>Note: we use \(x_0 = 1\) for notation.</p>
   <p>θ=Parameters, x=features</p>

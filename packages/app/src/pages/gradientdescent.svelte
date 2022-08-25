@@ -1,5 +1,19 @@
 <script>
   import VisualizeGradDesc from "../components/VisualizeGradDesc.svelte";
+  import { modifiedMse } from "../utils/equations";
+  import {
+    gradientDescentAlg,
+    simpleLinearRegression,
+  } from "../utils/equations";
+
+  const Jcost = `J(θ_1, θ_2)`;
+  const simpleCostFnExample = `J(θ) = ${Jcost} = θ_1^2 + 3θ_2^2`;
+  const simpleGradTheta1 = `$$ θ_1 := θ_1 - \\alpha\\frac{∂}{∂_1}${Jcost} $$`;
+  const simpleGradTheta2 = `$$ θ_2 := θ_2 - \\alpha\\frac{∂}{∂_2}${Jcost} $$`;
+  const partial = (x) => `\\frac{∂}{∂θ_${x}}`;
+  const partialJ = (x) => `${partial(x)}${Jcost} = `;
+  const simpleJDerivative = (x) =>
+    `${partialJ(x)}${partial(1)}θ_1 + ${partial(2)}3θ_2^2 = `;
 </script>
 
 <svelte:head>
@@ -92,4 +106,59 @@
     will be smaller so we automatically take smaller steps.
   </p>
   <!-- TODO: Show how small/large alpha affects learning -->
+</section>
+<section>
+  <h2>Gradient descent algorithm</h2>
+  <i>repeat until convergence &lbrace;</i>
+  <span>{gradientDescentAlg}</span>
+  <i>&rbrace;</i>
+  <ul>Remember that:</ul>
+  <li>\(\alpha\) is our learning rate.</li>
+  <li>\(θ\) = parameters</li>
+  <li>\(j\) = number of parameters</li>
+  <li>
+    \(∂\) is used to identify partial derivative variables. \(∂\) is called
+    'dee'
+  </li>
+  <p>A partial derivative whats that?</p>
+  <p>
+    Partial derivatives tell you how a multivariable function changes as you
+    tweak just one of the variables in its input. The reason for a new type of
+    derivative is that when the input of a function is made up of multiple
+    variables, we want to see how the function changes as we let just one of
+    those variables change while holding all the others constant.
+  </p>
+  <h2>Patial derivative example</h2>
+  <p>
+    For a simple example, lets assume our cost function looks like this: \({simpleCostFnExample}\)
+  </p>
+  <p>Notice how it's made up of two variables \(θ_1\) and \(θ_2\).</p>
+  <p>Our gradient descent algorithm would therefore look like this:</p>
+  <i>repeat until convergence &lbrace;</i>
+  <span>{simpleGradTheta1}</span>
+  <span>{simpleGradTheta2}</span>
+  <i>&rbrace;</i>
+
+  <p>Now we calculate the partial derivatives of these 2 equations:</p>
+  <p>$$ {simpleJDerivative(1)} 2θ_1$$</p>
+  <p>$$ {simpleJDerivative(2)} 6θ_2$$</p>
+  <p>
+    Lets stick this back into our original gradient descent algorithm to see how
+    it all looks together!
+  </p>
+  <i>repeat until convergence &lbrace;</i>
+  <span>$$ θ_1 := θ_1 - \alpha2θ_1 $$</span>
+  <span>$$ θ_2 := θ_2 - \alpha6θ_2 $$</span>
+  <i>&rbrace;</i>
+  <h2>The actual gradient descent algorithm</h2>
+  <p>
+    Now lets figure out how we do gradient descent with our actual cost function
+    MSE!
+  </p>
+  <p>
+    Here's the formulae below for those who can't remember
+    <span>$$ {Jcost} = {modifiedMse} $$</span>For those who are observant will
+    notice we are using the modified MSE with the 2n term which is going to
+    become clear pretty soon on why we do that.
+  </p>
 </section>

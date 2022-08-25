@@ -1,5 +1,5 @@
 <script>
-  const mse = `$$ {MSE} ={\\frac {1}{n}}\\sum_{i=1}^{n}\\left(Y_{i}-{\\hat {Y_{i}}}\\right)^{2} $$`;
+  import { mse, modifiedMse } from "../utils/equations";
 </script>
 
 <svelte:head>
@@ -18,9 +18,15 @@
   The formula that we will be using as our cost function is known as mean
   squared error.
 </p>
-<p>{mse}</p>
+<p>$$ {mse} $$</p>
+<span>n = number of training examples</span>
 <p>
   One thing to note about MSE is that it does not perform well with outliers -
   This is the result of squaring each term, which effectively weights large
   errors more heavily than small ones.
+</p>
+<p>$$ {modifiedMse} $$</p>
+<p>
+  We use a slightly modified MSE (notice the 2n term). The reason for this is it
+  makes the maths easier when it comes to differentiation.
 </p>
