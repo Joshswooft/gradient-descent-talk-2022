@@ -1,5 +1,4 @@
 <script lang="ts">
-  import "../app.css";
   import { onMount } from "svelte";
   import { Parallax, ParallaxLayer, StickyLayer } from "svelte-parallax";
   import { fade, fly } from "svelte/transition";
@@ -94,3 +93,9 @@
     <div id="contour_plot_ex1" /> -->
   </Parallax>
 </main>
+
+<style global lang="postcss">
+  @tailwind base;
+  @tailwind components;
+  @tailwind utilities;
+</style>
