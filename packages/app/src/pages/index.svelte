@@ -93,9 +93,3 @@
     <div id="contour_plot_ex1" /> -->
   </Parallax>
 </main>
-
-<style global lang="postcss">
-  @tailwind base;
-  @tailwind components;
-  @tailwind utilities;
-</style>

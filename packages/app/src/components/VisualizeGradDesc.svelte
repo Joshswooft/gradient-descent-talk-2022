@@ -98,7 +98,7 @@
   }
 </script>
 
-<div>
+<div class="my-4">
   <button on:click={playFromStart}>Run</button>
   <svg viewBox="0 0 1400 1802" class="svg-grid" {width} {height}>
     <g class="canvas">

@@ -28,3 +28,7 @@ html, body, canvas {
   letter-spacing: -0.02em;
   font-size: 3em;
 }
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;

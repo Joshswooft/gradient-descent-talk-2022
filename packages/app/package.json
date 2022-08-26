@@ -26,6 +26,7 @@
     "vitest": "^0.21.1"
   },
   "dependencies": {
+    "@tailwindcss/typography": "^0.5.4",
     "d3": "^7.6.1",
     "mathjax": "^3.2.2",
     "mathjs": "^11.0.1",
