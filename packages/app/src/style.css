@@ -5,10 +5,8 @@ html, body, canvas {
 }
 
 #app {
-  font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
   color: #2c3e50;
 }
 
@@ -27,6 +25,10 @@ html, body, canvas {
   color: #000;
   letter-spacing: -0.02em;
   font-size: 3em;
+}
+
+#app h2 {
+  font-weight: 300;
 }
 
 @tailwind base;
