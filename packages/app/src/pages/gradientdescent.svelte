@@ -108,7 +108,7 @@
       <p>y changes to $$ y = f(x + Δx) $$</p>
       <p>x changes to $$ x = x + Δx $$</p>
       <p>
-        So taking our previous example of the $$y = (x - 20)^2 + c $$ lets
+        So taking our previous example of the \(y = (x - 20)^2 + c \) lets
         calculate the derivative for this function. <span class="italic"
           >(Note: calculating the derivative is called differentiation).</span
         >
@@ -141,8 +141,10 @@
   <section class="grid grid-cols-2">
     <article class="prose">
       <h1 class="mt-12 mb-8 border-b-2">Introducing alpha</h1>
-      <p class="font-bold text-center mb-12">
-        Alpha ( \(\alpha\) ) is our learning rate.
+      <p class="mb-12">
+        <span class="font-bold">Alpha ( \(\alpha\) ) is our learning rate.</span
+        > You can think of it as a force that pushes the ball in the direction it
+        needs to go.
       </p>
       <p class="my-4">Common problems:</p>
       <ul class="ml-2 mb-16">
@@ -162,8 +164,8 @@
     </article>
     <!-- TODO: Show how small/large alpha affects learning -->
   </section>
-  <section class="grid grid-cols-2 px-2">
-    <article class="prose">
+  <section class="grid grid-cols-2 px-2 gap-8">
+    <article class="prose mb-10">
       <h1 class="mt-12 mb-8 border-b-2">Gradient descent algorithm</h1>
       <GdCodeBlock />
       <p>Remember that:</p>
@@ -222,18 +224,9 @@
         the 2n term which is going to become clear pretty soon on why we do that.
       </p>
       <div>
-        <p>Derivative Rules</p>
-        <ul>
-          <li>The power rule: \({powerRule}\)</li>
-          <li>Constant: \(f(x) = c, f'(x) = 0\)</li>
-          <li>Line: \(f(x) = x, f'(x) = 1\)</li>
-          <li>Multiplication by constant: \( cf => cf' \)</li>
-          <li>Sum rule: \( f + g => f' + g' \)</li>
-          <li>Chain rule: \({chainRule} \)</li>
-        </ul>
-      </div>
-      <div>
-        <p>$$ {Jcost} = {modifiedMse} $$</p>
+        <CodeBlock>
+          <p>$$ {Jcost} = {modifiedMse} $$</p>
+        </CodeBlock>
         <p>1. Apply the sum rule</p>
         <p>1. \({d1} \)</p>
         <p>2. Multiplication by constant</p>
@@ -274,5 +267,18 @@
         />
       </div>
     </article>
+    <div>
+      <div class="text-center mt-16 sticky top-10">
+        <p class="mb-4">Derivative Rules</p>
+        <ul>
+          <li>The power rule: \({powerRule}\)</li>
+          <li>Constant: \(f(x) = c, f'(x) = 0\)</li>
+          <li>Line: \(f(x) = x, f'(x) = 1\)</li>
+          <li>Multiplication by constant: \( cf => cf' \)</li>
+          <li>Sum rule: \( f + g => f' + g' \)</li>
+          <li>Chain rule: \({chainRule} \)</li>
+        </ul>
+      </div>
+    </div>
   </section>
 </div>
