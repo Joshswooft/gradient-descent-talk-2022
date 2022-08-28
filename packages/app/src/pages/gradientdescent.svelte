@@ -58,7 +58,7 @@
 <div class="text-left">
   <section class="grid grid-cols-2">
     <article class="px-2 prose">
-      <h1 class="mb-5 border-b-2">Gradient descent</h1>
+      <h1 class="mb-8 border-b-2">Gradient descent</h1>
       <p>
         We can think of gradient descent as an optimiser where it's trying to
         find the minimum value for some function.
@@ -95,7 +95,9 @@
         slope of the line is practically 0 at the lowest point! Unfortantely
         calculating the slope at a point doesn't work!
       </p>
-      <p>$$ slope = \Delta y /\Delta x = 0/0 = ???$$</p>
+      <CodeBlock>
+        <p>$$ slope = \Delta y /\Delta x = 0/0 = ???$$</p>
+      </CodeBlock>
       <p>
         Instead what we do is calculate something called the derivative. You can
         think of this as being a very small difference in the slope that shrinks
@@ -107,11 +109,12 @@
       <p>x changes to $$ x = x + Δx $$</p>
       <p>
         So taking our previous example of the $$y = (x - 20)^2 + c $$ lets
-        calculate the derivative for this function. (Note: calculating the
-        derivative is called differentiation).
+        calculate the derivative for this function. <span class="italic"
+          >(Note: calculating the derivative is called differentiation).</span
+        >
       </p>
       <p>$$ ((x + Δx - 20)^2 - (x-20)^2) / Δx $$</p>
-      <p>Note the derivative of a constant is 0.</p>
+      <p class="italic">Note: the derivative of a constant is 0.</p>
       <p>Expand</p>
       <p>
         $$ ([x^2 + xΔx -20x + xΔx + Δx^2 - 20Δx - 20x -20Δx + 400 ] - [x^2 - 40x
@@ -126,7 +129,7 @@
       <p>Divide and rearrange</p>
       <p>$$ 2(x - 20) + Δx $$</p>
       <p>Δx heads towards 0</p>
-      <p>$$ 2(x - 20) $$</p>
+      <p class="text-center">\( 2(x - 20) \)</p>
     </article>
     <div class="px-2">
       <VisualizeGradDesc />
@@ -136,16 +139,22 @@
   </section>
 
   <section class="grid grid-cols-2">
-    <article>
-      <h1 class="mb-5 border-b-2">Introducing alpha</h1>
-      <p>\(\alpha\) is our learning rate.</p>
-      <h2>Common problems</h2>
-      <p>If \(\alpha\) is too <b>small</b>, gradient descent can be slow.</p>
-      <p>
-        If \(\alpha\) is too <b>large</b>, then gradient descent can overshoot
-        the minimum. It may fail to converge and even diverge!
+    <article class="prose">
+      <h1 class="mt-12 mb-8 border-b-2">Introducing alpha</h1>
+      <p class="font-bold text-center mb-12">
+        Alpha ( \(\alpha\) ) is our learning rate.
       </p>
-      <p>
+      <p class="my-4">Common problems:</p>
+      <ul class="ml-2 mb-16">
+        <li>
+          If \(\alpha\) is too <b>small</b>, gradient descent can be slow.
+        </li>
+        <li>
+          If \(\alpha\) is too <b>large</b>, then gradient descent can overshoot
+          the minimum. It may fail to converge and even diverge!
+        </li>
+      </ul>
+      <p class="italic">
         Note: Gradient descent can converge to a local minimum even with the
         learning rate fixed. This is because as we approach the minimum the
         slope will be smaller so we automatically take smaller steps.
@@ -155,16 +164,18 @@
   </section>
   <section class="grid grid-cols-2 px-2">
     <article class="prose">
-      <h1 class="my-5 border-b-2">Gradient descent algorithm</h1>
+      <h1 class="mt-12 mb-8 border-b-2">Gradient descent algorithm</h1>
       <GdCodeBlock />
-      <ul>Remember that:</ul>
-      <li>\(\alpha\) is our learning rate.</li>
-      <li>\(θ\) = parameters</li>
-      <li>\(j\) = number of parameters</li>
-      <li>
-        \(∂\) is used to identify partial derivative variables. \(∂\) is called
-        'dee'
-      </li>
+      <p>Remember that:</p>
+      <ul>
+        <li>\(\alpha\) is our learning rate.</li>
+        <li>\(θ\) = parameters</li>
+        <li>\(j\) = number of parameters</li>
+        <li>
+          \(∂\) is used to identify partial derivative variables. \(∂\) is
+          called 'dee'
+        </li>
+      </ul>
       <p>A partial derivative whats that?</p>
       <p>
         Partial derivatives tell you how a multivariable function changes as you
@@ -186,8 +197,10 @@
       />
 
       <p>Now we calculate the partial derivatives of these 2 equations:</p>
-      <p>$$ {simpleJDerivative(1)} 2θ_0$$</p>
-      <p>$$ {simpleJDerivative(2)} 6θ_1$$</p>
+      <CodeBlock>
+        <p>$$ {simpleJDerivative(1)} 2θ_0$$</p>
+        <p>$$ {simpleJDerivative(2)} 6θ_1$$</p>
+      </CodeBlock>
       <p>
         Lets stick this back into our original gradient descent algorithm to see
         how it all looks together!
@@ -202,9 +215,11 @@
       </p>
       <p>
         Here's the formulae below for those who can't remember
-        <span>$$ {Jcost} = {modifiedMse} $$</span>For those who are observant
-        will notice we are using the modified MSE with the 2n term which is
-        going to become clear pretty soon on why we do that.
+        <CodeBlock>
+          <span>$$ {Jcost} = {modifiedMse} $$</span>
+        </CodeBlock>
+        For those who are observant will notice we are using the modified MSE with
+        the 2n term which is going to become clear pretty soon on why we do that.
       </p>
       <div>
         <p>Derivative Rules</p>
@@ -228,7 +243,7 @@
             >\({yHat}\) for hypothesis: \( {simpleLinearRegression} \)</i
           >
         </p>
-        <p>
+        <p class="italic">
           Note: \(x_i\) refers to a data point from your feature(s) therefore
           it's treated as a constant not a variable! Our Variables are θ.
         </p>
