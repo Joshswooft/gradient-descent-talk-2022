@@ -26,13 +26,15 @@ export default function gradientDescent(
 
   let t = theta;
 
+  let thetaHistory = [t];
+
   for (let i = 0; i < num_iters; i++) {
     // console.log("X size: ", X.size());
     // console.log("t size: ", t.size());
     // hypothesis needs to be 414x1
     // const hypothesis = multiply(transpose(X), theta);
     const hyp = hypothesis(X, t);
-    // console.log("hypothesis: ", hypothesis);
+    // console.log("hypothesis: ", hyp);
 
     const error = subtract(hyp, y);
     // console.log("error matrix: ", error);
@@ -43,9 +45,10 @@ export default function gradientDescent(
     // the cost should decrease per iteration
     // console.log("t: ", t);
     Jerror.push(computeCost(X, y, t, costFn));
+    thetaHistory.push(t);
   }
 
   // console.log("return t: ", t);
 
-  return { t, Jerror };
+  return { t, Jerror, thetaHistory };
 }
