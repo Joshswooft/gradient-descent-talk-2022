@@ -1,4 +1,7 @@
 <script lang="ts">
+  export let play: boolean;
+  export let reverse: boolean;
+
   import Grid from "./Grid.svelte";
   import { tweened } from "svelte/motion";
   import { cubicOut } from "svelte/easing";
@@ -43,6 +46,8 @@
     { x: 30, y: y(30, c) },
     { x: 40, y: y(40, c) },
     { x: 50, y: y(50, c) },
+    { x: 60, y: y(60, c) },
+    { x: 70, y: y(70, c) },
   ];
 
   console.log("width: ", width);
@@ -61,6 +66,26 @@
   }
 
   let iterations = 0;
+
+  async function reverseAnim() {
+    while (iterations > 0) {
+      const d = data[iterations - 1];
+
+      await Promise.all([
+        value.set(yScale(d.y), {
+          duration: 200,
+          interpolate: interpolate,
+          // easing: cubicOut,
+        }),
+        time.set(xScale(d.x), {
+          duration: 200,
+          interpolate: interpolate,
+          // easing: cubicOut,
+        }),
+      ]);
+      iterations--;
+    }
+  }
 
   async function runAnimation() {
     console.log("run!");
@@ -86,7 +111,7 @@
       //   found the min point - stop the animation!
       //   note: this only works because we chose our x-values carefully :)
       if (grad == 0) {
-        iterations = data.length;
+        break;
       }
       iterations++;
     }
@@ -96,10 +121,20 @@
     reset();
     runAnimation();
   }
+
+  $: console.log("play: ", play, "reverse?: ", reverse);
+
+  // this brings reactivity to the component, when the play variable changes this block will execute.
+  $: if (play && reverse) {
+    reverseAnim();
+  }
+
+  $: if (play && !reverse) {
+    runAnimation();
+  }
 </script>
 
-<div class="my-4">
-  <button on:click={playFromStart}>Run</button>
+<div class="my-4 text-center">
   <svg viewBox="0 0 1400 1802" class="svg-grid" {width} {height}>
     <g class="canvas">
       <Grid x={$time} y={$value} />

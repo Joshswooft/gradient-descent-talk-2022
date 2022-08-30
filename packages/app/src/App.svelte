@@ -3,6 +3,6 @@
   import { routes } from "./pages/routes.config";
 </script>
 
-<main class="m-10">
+<main class="p-10 mx-auto max-w-screen-xl">
   <Router {routes} />
 </main>
