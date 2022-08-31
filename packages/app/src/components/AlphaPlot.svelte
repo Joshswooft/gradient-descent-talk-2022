@@ -36,7 +36,7 @@
     const frames = [createData(selectedAlpha, X, theta, Y, num_iterations)];
     Plotly.animate("alpha_plot", frames, { redraw: false });
 
-    const { t } = gradDescentResult;
+    const { t, thetaHistory, Jerror } = gradDescentResult;
     const hyp = hypothesis(X, t);
 
     const data = [
@@ -45,7 +45,34 @@
     ];
     Plotly.animate("points_plot", { data });
 
-    // TOOD: update the theta vs error graph
+    const t0s = thetaHistory.map((t) => t._values[0]);
+    const t1s = thetaHistory.map((t) => t._values[1]);
+
+    const minX = Math.min(...t0s, ...t1s);
+    const maxX = Math.max(...t0s, ...t1s);
+
+    const minY = 0;
+    const maxY = Math.max(...Jerror);
+
+    const testData1 = {
+      x: t0s,
+      y: Jerror,
+    };
+
+    const testData2 = {
+      x: t1s,
+      y: Jerror,
+    };
+
+    // TODO: is there a way to mark the begining and end markers?
+
+    Plotly.animate("test", {
+      data: [testData1, testData2],
+      layout: {
+        xaxis: { range: [minX, maxX] },
+        yaxis: { range: [minY, maxY] },
+      },
+    });
   }
 
   function createData(alpha, X, theta, Y, iters) {
@@ -121,23 +148,25 @@
   });
 </script>
 
-<div id="points_plot" />
-<div id="controls">
-  <label for="iters_slider">Number of iterations</label>
-  <input
-    id="iters_slider"
-    bind:value={num_iterations}
-    type="range"
-    min="5"
-    max="50"
-  />
-  <select bind:value={selectedAlpha}>
-    {#each alphas as alpha}
-      <option value={alpha}>
-        alpha: {alpha}
-      </option>
-    {/each}
-  </select>
+<div class="grid grid-cols-2">
+  <div id="controls">
+    <label for="iters_slider">Number of iterations</label>
+    <input
+      id="iters_slider"
+      bind:value={num_iterations}
+      type="range"
+      min="2"
+      max="50"
+    />
+    <select bind:value={selectedAlpha}>
+      {#each alphas as alpha}
+        <option value={alpha}>
+          alpha: {alpha}
+        </option>
+      {/each}
+    </select>
+  </div>
+  <div id="points_plot" style="min-height: 300px;" />
+  <div bind:this={alpha_plot} id="alpha_plot" />
+  <div id="test" />
 </div>
-<div bind:this={alpha_plot} id="alpha_plot" />
-<div id="test" />
