@@ -17,19 +17,46 @@
   let alphas = [0.01, 0.05, 0.1, 0.2, 0.25];
   let selectedAlpha = 0.01;
   let num_iterations = 5;
+  let alpha_plot;
 
-  function updateAnim() {
+  let gradDescentResult = gradientDescent(
+    X,
+    Y,
+    theta,
+    selectedAlpha,
+    num_iterations
+  );
+
+  console.log("gradDescentResult: ", gradDescentResult);
+
+  $: alpha_plot && updateAnim(selectedAlpha, num_iterations);
+
+  function updateAnim(selectedAlpha, num_iterations) {
+    console.log("updating: ", { selectedAlpha, num_iterations });
     const frames = [createData(selectedAlpha, X, theta, Y, num_iterations)];
-    Plotly.animate("alpha_plot", frames);
+    Plotly.animate("alpha_plot", frames, { redraw: false });
+
+    const { t } = gradDescentResult;
+    const hyp = hypothesis(X, t);
+
+    const data = [
+      { y: points, name: "y" },
+      { y: hyp._values, name: "hypothesis" },
+    ];
+    Plotly.animate("points_plot", { data });
+
+    // TOOD: update the theta vs error graph
   }
 
   function createData(alpha, X, theta, Y, iters) {
-    const { Jerror } = gradientDescent(X, Y, theta, alpha, iters);
+    gradDescentResult = gradientDescent(X, Y, theta, alpha, iters);
+
+    const { Jerror } = gradDescentResult;
 
     const xVals = Array.from(Array(Jerror.length).keys());
     // update axis
-    const minX = Math.min(...xVals);
-    const maxX = Math.max(...xVals);
+    const minX = 0;
+    const maxX = num_iterations;
 
     const minY = Math.min(...Jerror);
     const maxY = Math.max(...Jerror);
@@ -43,21 +70,7 @@
     };
   }
 
-  const frames = [
-    { name: "0.01", ...createData(0.01, X, theta, Y, num_iterations) },
-    { name: "0.05", ...createData(0.05, X, theta, Y, num_iterations) },
-    { name: "0.1", ...createData(0.1, X, theta, Y, num_iterations) },
-    { name: "0.2", ...createData(0.2, X, theta, Y, num_iterations) },
-    { name: "0.25", ...createData(0.25, X, theta, Y, num_iterations) },
-  ];
-
-  const { t, Jerror, thetaHistory } = gradientDescent(
-    X,
-    Y,
-    theta,
-    selectedAlpha,
-    num_iterations
-  );
+  const { t, Jerror, thetaHistory } = gradDescentResult;
   console.log("Jerr: ", Jerror);
   console.log("thetaHistory: ", thetaHistory);
 
@@ -102,22 +115,7 @@
     ]);
 
     // plot learning with different alphas
-    Plotly.newPlot("alpha_plot", [data], {
-      updatemenus: [
-        {
-          buttons: [
-            { method: "animate", args: [["0.01"]], label: "0.01" },
-            { method: "animate", args: [["0.05"]], label: "0.05" },
-            { method: "animate", args: [["0.1"]], label: "0.1" },
-            { method: "animate", args: [["0.2"]], label: "0.2" },
-            { method: "animate", args: [["0.25"]], label: "0.25" },
-          ],
-        },
-      ],
-    }).then(function () {
-      console.log("here");
-      Plotly.addFrames("alpha_plot", frames);
-    });
+    Plotly.newPlot("alpha_plot", [data]);
     // plot theta values against error
     Plotly.newPlot("test", [testData1, testData2]);
   });
@@ -125,29 +123,21 @@
 
 <div id="points_plot" />
 <div id="controls">
+  <label for="iters_slider">Number of iterations</label>
   <input
+    id="iters_slider"
     bind:value={num_iterations}
-    on:change={updateAnim}
     type="range"
     min="5"
-    max="30"
+    max="50"
   />
-  <!-- TODO: dropdown -->
-  <div>
+  <select bind:value={selectedAlpha}>
     {#each alphas as alpha}
-      <label>
-        <input
-          type="radio"
-          bind:group={selectedAlpha}
-          value={alpha}
-          on:click={updateAnim}
-        />
-        {alpha}
-        <br />
-      </label>
+      <option value={alpha}>
+        alpha: {alpha}
+      </option>
     {/each}
-    <p>{selectedAlpha}</p>
-  </div>
+  </select>
 </div>
-<div id="alpha_plot" />
+<div bind:this={alpha_plot} id="alpha_plot" />
 <div id="test" />
