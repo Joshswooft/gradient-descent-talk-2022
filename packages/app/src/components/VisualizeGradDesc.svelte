@@ -122,8 +122,6 @@
     runAnimation();
   }
 
-  $: console.log("play: ", play, "reverse?: ", reverse);
-
   // this brings reactivity to the component, when the play variable changes this block will execute.
   $: if (play && reverse) {
     reverseAnim();

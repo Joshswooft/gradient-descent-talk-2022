@@ -1,6 +1,6 @@
 <script lang="ts">
   export let onCallToActionHandler;
-  export let showCallToActionButton: boolean;
+  export let showCallToActionButton: boolean = true;
 
   import { link } from "svelte-spa-router";
   import { fade, fly } from "svelte/transition";
