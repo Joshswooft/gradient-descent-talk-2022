@@ -7,7 +7,7 @@
 
   // y = 2x + 5
   const xs = [0, 1, 2, 3, 4, 5];
-  const points = Array.from(xs, (x) => (x, 2 * x + 5));
+  const points = Array.from(xs, (x) => (x, x * x + 5));
 
   const X = transpose(matrix([ones(xs.length), xs]));
   const Y = sparse(points);
@@ -33,12 +33,6 @@
     autosize: false,
     width: 500,
     height: 500,
-    margin: {
-      l: 65,
-      r: 50,
-      b: 65,
-      t: 90,
-    },
   };
 
   const data = [

@@ -64,13 +64,17 @@
 
     // TODO: is there a way to mark the begining and end markers?
 
-    Plotly.animate("test", {
-      data: [testData1, testData2],
-      layout: {
-        xaxis: { range: [minX, maxX] },
-        yaxis: { range: [minY, maxY] },
+    Plotly.animate(
+      "test",
+      {
+        data: [testData1, testData2],
+        layout: {
+          xaxis: { range: [minX, maxX] },
+          yaxis: { range: [minY, maxY] },
+        },
       },
-    });
+      { redraw: false }
+    );
   }
 
   function createData(alpha, X, theta, Y, iters) {

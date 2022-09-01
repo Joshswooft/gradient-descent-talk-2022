@@ -4,9 +4,10 @@
   import VisualizeGradDesc from "../components/VisualizeGradDesc.svelte";
   import { chainRule, modifiedMse, powerRule } from "../utils/equations";
   import { simpleLinearRegression } from "../utils/equations";
-  import { Parallax, ParallaxLayer, StickyLayer } from "svelte-parallax";
   import AlphaPlot from "../components/AlphaPlot.svelte";
   import SurfacePlot from "../components/SurfacePlot.svelte";
+  import Scroller from "../lib/Scroller.svelte";
+  import Divider from "../components/Divider.svelte";
 
   const Jcost = `J(θ_0, θ_1)`;
   const simpleCostFnExample = `J(θ) = ${Jcost} = θ_0^2 + 3θ_1^2`;
@@ -55,20 +56,14 @@
   let parallax;
   const parallaxConfig = { stiffness: 1, damping: 1 };
 
-  let playGradientDescentGraphAnim = false;
+  $: progress = 0;
+
+  $: playGradientDescentGraphAnim = progress > 0.15;
   let scrollDirection = 0;
-  let lastProgress = 0;
 
-  const handleProgress = (progress) => {
-    scrollDirection = progress - lastProgress;
-    lastProgress = progress;
-
-    if (progress > 0.15) {
-      playGradientDescentGraphAnim = true;
-      return;
-    }
-    playGradientDescentGraphAnim = false;
-  };
+  function onWheel(evt) {
+    scrollDirection = evt.deltaY;
+  }
 </script>
 
 <svelte:head>
@@ -76,15 +71,26 @@
     src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 </svelte:head>
 
-<div class="text-left">
-  <Parallax
-    sections={8.5}
-    config={parallaxConfig}
-    threshold={{ top: 0, bottom: 0 }}
-    bind:this={parallax}
-  >
-    <ParallaxLayer style="width: 50%; left: 0;" rate={0} span={3}>
-      <section class="">
+<svelte:window on:mousewheel={onWheel} />
+
+<div class="text-left py-8">
+  <Scroller splitscreen={true} bottom={1.5} bind:progress>
+    <div slot="background">
+      <!-- background should contain the graphics -->
+      <div>
+        <div class="px-2">
+          <VisualizeGradDesc
+            play={playGradientDescentGraphAnim}
+            reverse={scrollDirection < 0}
+          />
+          <p class="text-center">Here's an example of a convex function:</p>
+          <p>$$y = (x - 20)^2 + c $$</p>
+        </div>
+        <SurfacePlot />
+      </div>
+    </div>
+    <div slot="foreground">
+      <section class="pl-8">
         <article class="px-2 prose">
           <h1 class="mb-8 border-b-2">Gradient descent</h1>
           <p>
@@ -163,29 +169,15 @@
           <p class="text-center">\( 2(x - 20) \)</p>
         </article>
       </section>
-    </ParallaxLayer>
-    <StickyLayer
-      style="width: 50%; right: 0; left: auto"
-      offset={{ top: 0, bottom: 1 }}
-      onProgress={handleProgress}
-    >
-      <div class="px-2">
-        <VisualizeGradDesc
-          play={playGradientDescentGraphAnim}
-          reverse={scrollDirection < 0}
-        />
-        <p class="text-center">Here's an example of a convex function:</p>
-        <p>$$y = (x - 20)^2 + c $$</p>
-      </div>
-    </StickyLayer>
-    <StickyLayer
-      style="width: 50%; right: 0; left: auto"
-      offset={{ top: 2, bottom: 2.2 }}
-    >
-      <SurfacePlot />
-    </StickyLayer>
-    <ParallaxLayer offset={3} span={1} rate={0}>
-      <section class="grid grid-cols-2">
+    </div>
+  </Scroller>
+  <Divider />
+  <Scroller splitscreen={true}>
+    <div slot="background">
+      <AlphaPlot />
+    </div>
+    <div slot="foreground">
+      <section style="height: 100vh;" class="pl-8">
         <article class="prose">
           <h1 class="mt-12 mb-8 border-b-2">Introducing alpha</h1>
           <p class="mb-12">
@@ -210,12 +202,28 @@
             slope will be smaller so we automatically take smaller steps.
           </p>
         </article>
-        <AlphaPlot />
-        <!-- TODO: Show how small/large alpha affects learning -->
       </section>
-    </ParallaxLayer>
-    <ParallaxLayer rate={0} offset={4}>
-      <section class="grid grid-cols-2 px-2 gap-8">
+    </div>
+  </Scroller>
+  <Divider />
+  <Scroller>
+    <div slot="background">
+      <div class="w-1/2 left-1/2 ml-auto">
+        <div class="text-center mt-16 top-10">
+          <p class="mb-4">Derivative Rules</p>
+          <ul>
+            <li>The power rule: \({powerRule}\)</li>
+            <li>Constant: \(f(x) = c, f'(x) = 0\)</li>
+            <li>Line: \(f(x) = x, f'(x) = 1\)</li>
+            <li>Multiplication by constant: \( cf => cf' \)</li>
+            <li>Sum rule: \( f + g => f' + g' \)</li>
+            <li>Chain rule: \({chainRule} \)</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div slot="foreground">
+      <section class="pl-8">
         <article class="prose mb-10">
           <h1 class="mt-12 mb-8 border-b-2">Gradient descent algorithm</h1>
           <GdCodeBlock />
@@ -302,7 +310,6 @@
             <p>Apply power rule</p>
             <p>$$ {dPower} $$</p>
             <p>Do partial derivative</p>
-            <!-- TODO: do partial derivative -->
             <p>$$ {partialDeriv0} $$</p>
             <p>$$ = 1 + 0 - 0 $$</p>
             <p>$$ {evaluatedPartialDeriv0} $$</p>
@@ -310,7 +317,7 @@
             <p>$$ = 0 + x - 0 $$</p>
             <p>$$ {evaluatedPartialDeriv1} $$</p>
             <p>Notice we can cancel out the 2's!</p>
-            <p>
+            <p class="mb-4">
               Now to plug it all back into the original gradient descent
               algorithm
             </p>
@@ -323,21 +330,6 @@
           </div>
         </article>
       </section>
-    </ParallaxLayer>
-    <StickyLayer offset={{ top: 4, bottom: 10 }}>
-      <div class="w-1/2 left-1/2 ml-auto">
-        <div class="text-center mt-16 top-10">
-          <p class="mb-4">Derivative Rules</p>
-          <ul>
-            <li>The power rule: \({powerRule}\)</li>
-            <li>Constant: \(f(x) = c, f'(x) = 0\)</li>
-            <li>Line: \(f(x) = x, f'(x) = 1\)</li>
-            <li>Multiplication by constant: \( cf => cf' \)</li>
-            <li>Sum rule: \( f + g => f' + g' \)</li>
-            <li>Chain rule: \({chainRule} \)</li>
-          </ul>
-        </div>
-      </div>
-    </StickyLayer>
-  </Parallax>
+    </div>
+  </Scroller>
 </div>

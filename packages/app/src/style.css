@@ -27,8 +27,73 @@ html, body, canvas {
   font-size: 3em;
 }
 
+#surface_plot * {
+    margin: 0 auto;
+  }
+
 #app h2 {
   font-weight: 300;
+}
+/* SCROLL-SPECIFIC ELEMENTS */
+
+svelte-scroller-background-container {
+	pointer-events: all !important;
+}
+
+[slot="foreground"] section + section {
+	padding: 0 0 100vh 0;
+}
+
+[slot="foreground"] section div {
+	padding: 12px;
+	position: relative;
+}
+
+[slot="foreground"] section div::before {
+	content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+	background-color: #fff;
+  opacity: 0.8;
+  z-index: -1;
+}
+
+[slot="foreground"] section div p {
+	margin: 0;
+}
+
+[slot="foreground"] section div p + p {
+	margin-top: 30px;
+}
+
+[slot="foreground"] section div h2,
+[slot="foreground"] section div h3 {
+	margin: 10px 0 20px 0;
+}
+
+@media (min-width: 992px) {
+	.splitscreen svelte-scroller-background {
+		width: calc(100% - 600px) !important;
+		min-width: 50%;
+		margin: 0 0 0 auto;
+	}
+	.splitscreen [slot="foreground"] section div::before {
+		opacity: 0;
+	}
+	.splitscreen [slot="foreground"] section {
+		width: 600px;
+		max-width: 50%;
+		margin: 0 auto 0 0;
+		background-color: #fff;
+	}
+	.splitscreen [slot="foreground"] .col-medium {
+		width: 100%;
+		margin: 0;	
+		padding: 0 30px;
+	}
 }
 
 @tailwind base;
