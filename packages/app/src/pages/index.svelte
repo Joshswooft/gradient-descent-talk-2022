@@ -12,9 +12,11 @@
   <div class="h-screen">
     <TitleFold onCallToActionHandler showCallToActionButton={false} />
   </div>
+  <Divider />
   <div class="h-screen">
     <WhyMathsFold opacity={100} />
   </div>
+  <Divider />
   <Basics />
   <Divider />
   <Costfunction />

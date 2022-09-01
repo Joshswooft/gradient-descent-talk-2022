@@ -1,4 +1,4 @@
-<section class="prose">
+<article class="prose pl-8">
   <h1 class="mt-12 mb-8 border-b-2">Problems with Linear Regression</h1>
   <ul>
     <!-- TODO: show example of overfitting vs underfitting -->
@@ -68,4 +68,4 @@
       multicollinearity is not a problem.
     </li>
   </ul>
-</section>
+</article>

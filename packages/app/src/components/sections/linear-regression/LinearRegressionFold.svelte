@@ -5,7 +5,7 @@
   } from "../../../utils/equations";
 </script>
 
-<section class="mt-16">
+<article class="prose pl-8 mt-16">
   <h1 class="mb-8 border-b-2">What is Linear Regression?</h1>
   <p>
     Linear regression fits a straight line that minimises the errors between the
@@ -45,4 +45,4 @@
   </p>
   <p>Note: we use \(x_0 = 1\) for notation.</p>
   <p>θ=Parameters, x=features</p>
-</section>
+</article>

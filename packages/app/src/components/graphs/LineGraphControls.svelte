@@ -3,7 +3,7 @@
   export let c = 1; // y-intercept
 </script>
 
-<div id="controls">
+<div id="controls" class="text-center">
   <div class="slider">
     <input bind:value={m} id="gradient-slider" type="range" min="0" max="5" />
     <input
