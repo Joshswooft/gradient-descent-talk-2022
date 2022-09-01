@@ -5,6 +5,8 @@
   import { chainRule, modifiedMse, powerRule } from "../utils/equations";
   import { simpleLinearRegression } from "../utils/equations";
   import { Parallax, ParallaxLayer, StickyLayer } from "svelte-parallax";
+  import AlphaPlot from "../components/AlphaPlot.svelte";
+  import SurfacePlot from "../components/SurfacePlot.svelte";
 
   const Jcost = `J(θ_0, θ_1)`;
   const simpleCostFnExample = `J(θ) = ${Jcost} = θ_0^2 + 3θ_1^2`;
@@ -176,6 +178,12 @@
         <p>$$y = (x - 20)^2 + c $$</p>
       </div>
     </StickyLayer>
+    <StickyLayer
+      style="width: 50%; right: 0; left: auto"
+      offset={{ top: 2, bottom: 2.2 }}
+    >
+      <SurfacePlot />
+    </StickyLayer>
     <ParallaxLayer offset={3} span={1} rate={0}>
       <section class="grid grid-cols-2">
         <article class="prose">
@@ -202,6 +210,7 @@
             slope will be smaller so we automatically take smaller steps.
           </p>
         </article>
+        <AlphaPlot />
         <!-- TODO: Show how small/large alpha affects learning -->
       </section>
     </ParallaxLayer>
