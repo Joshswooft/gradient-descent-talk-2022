@@ -1,8 +1,6 @@
 <script>
   import { sparse, transpose, ones, matrix, min } from "mathjs";
-  import gradientDescent, {
-    nonVectorizedGradientDescent,
-  } from "../utils/gradient_descent";
+  import gradientDescent from "../utils/gradient_descent";
   import { onMount } from "svelte";
   import Plotly from "plotly.js-dist-min";
   import { hypothesis } from "../utils/hypothesis";
@@ -148,25 +146,31 @@
   });
 </script>
 
-<div class="grid grid-cols-2">
-  <div id="controls">
-    <label for="iters_slider">Number of iterations</label>
-    <input
-      id="iters_slider"
-      bind:value={num_iterations}
-      type="range"
-      min="2"
-      max="50"
-    />
-    <select bind:value={selectedAlpha}>
-      {#each alphas as alpha}
-        <option value={alpha}>
-          alpha: {alpha}
-        </option>
-      {/each}
-    </select>
+<div>
+  <div>
+    <div>
+      <div class="text-center" id="controls">
+        <label for="iters_slider">Number of iterations</label>
+        <input
+          id="iters_slider"
+          bind:value={num_iterations}
+          type="range"
+          min="2"
+          max="50"
+        />
+        <select bind:value={selectedAlpha}>
+          {#each alphas as alpha}
+            <option value={alpha}>
+              alpha: {alpha}
+            </option>
+          {/each}
+        </select>
+      </div>
+      <div id="points_plot" style="min-height: 300px;" />
+    </div>
+    <div class="grid grid-cols-2">
+      <div bind:this={alpha_plot} id="alpha_plot" />
+      <div id="test" />
+    </div>
   </div>
-  <div id="points_plot" style="min-height: 300px;" />
-  <div bind:this={alpha_plot} id="alpha_plot" />
-  <div id="test" />
 </div>
