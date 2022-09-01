@@ -10,7 +10,7 @@
   </script>
 </svelte:head>
 
-<article class="prose">
+<article class="prose pl-8">
   <h1 class="mb-8 border-b-2">Cost function</h1>
   <ul>
     <li>Allows models to analyze how well it fits the data.</li>

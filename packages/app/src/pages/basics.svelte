@@ -18,7 +18,7 @@
     src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 </svelte:head>
 
-<article class="prose">
+<article class="prose pl-8">
   <h1 class="mb-8 border-b-2">The basics</h1>
   <p>Lets start off with some of the basics - with a straight line graph!</p>
   <CodeBlock>
