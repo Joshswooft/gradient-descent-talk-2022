@@ -135,7 +135,7 @@
 </script>
 
 <div class="my-4 text-center">
-  <svg viewBox="0 0 1400 1802" class="svg-grid" {width} {height}>
+  <svg viewBox="0 0 1000 1200" class="svg-grid" {width} {height}>
     <g class="canvas">
       <Grid x={$time} y={$value} />
       <g class="graph">
@@ -143,7 +143,7 @@
         <path
           d="M0,23.647C0,22.41 27.014,0.407 28.496,0.025C29.978,-0.357 69.188,3.744 70.104,4.744C71.02,5.745 71.02,41.499 70.104,42.5C69.188,43.501 29.978,47.601 28.496,47.219C27.014,46.837 0,24.884 0,23.647Z"
           fill="#ff3e00"
-          style="transform: translate(1200px, {$value - 24}px)"
+          style="transform: translate(1000px, {$value - 24}px)"
         />
         <circle cx={$time} cy={$value} r="15" fill="#ff3e00" />
         <path d={line_gen} stroke="blue" stroke-width="5" fill="none" />
@@ -156,7 +156,7 @@
   .svg-grid {
     display: inline-block;
     width: 500px;
-    height: 500px;
+    height: 300px;
     margin-top: 2em;
   }
   .graph {
