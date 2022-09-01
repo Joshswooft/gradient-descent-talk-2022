@@ -47,10 +47,10 @@
   const partialDeriv1 = `${partial(1)}(\\theta_0 + \\theta_1x_1 - y_i)`;
   const evaluatedPartialDeriv1 = `${partialJ(
     1
-  )} { \\frac {1}{2n}} \\sum_{i=1}^{n}2(${gx})x`;
+  )} { \\frac {1}{2n}} \\sum_{i=1}^{n}2(${gx})x_1`;
 
   const updateTheta0 = `θ_0 := θ_0 - \\alpha( { \\frac {1}{n}} \\sum_{i=1}^{n}${gx} )`;
-  const updateTheta1 = `θ_1 := θ_1 - \\alpha( {\\frac {1}{n}} \\sum_{i=1}^{n}(${gx})x )`;
+  const updateTheta1 = `θ_1 := θ_1 - \\alpha( {\\frac {1}{n}} \\sum_{i=1}^{n}(${gx})x_1 )`;
 
   let parallax;
   const parallaxConfig = { stiffness: 1, damping: 1 };
