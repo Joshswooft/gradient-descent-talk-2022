@@ -1,4 +1,4 @@
-<article class="prose pl-8">
+<article class="prose pl-12">
   <h1 class="mt-12 mb-8 border-b-2">Problems with Linear Regression</h1>
   <ul>
     <!-- TODO: show example of overfitting vs underfitting -->

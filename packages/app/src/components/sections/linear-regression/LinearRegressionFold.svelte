@@ -5,7 +5,7 @@
   } from "../../../utils/equations";
 </script>
 
-<article class="prose pl-8 mt-16">
+<article class="prose pl-12 mt-16">
   <h1 class="mb-8 border-b-2">What is Linear Regression?</h1>
   <p>
     Linear regression fits a straight line that minimises the errors between the

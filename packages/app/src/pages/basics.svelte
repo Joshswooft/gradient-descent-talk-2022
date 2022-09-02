@@ -15,7 +15,7 @@
     src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 </svelte:head>
 
-<Scroller splitscreen={true}>
+<Scroller splitscreen={true} id="basics-scroller">
   <div slot="background">
     <section class="mt-16">
       <LineGraph id={"line_graph1"} {m} {c} />
@@ -24,8 +24,8 @@
   </div>
   <div slot="foreground">
     <section>
-      <article class="prose pl-8">
-        <h1 class="mb-8 border-b-2">The basics</h1>
+      <article class="prose pl-12">
+        <h1 id="basics-title" class="mb-8 border-b-2">The basics</h1>
         <p>
           Lets start off with some of the basics - with a straight line graph!
         </p>

@@ -90,9 +90,11 @@
       </div>
     </div>
     <div slot="foreground">
-      <section class="pl-8">
+      <section class="pl-12">
         <article class="px-2 prose">
-          <h1 class="mb-8 border-b-2">Gradient descent</h1>
+          <h1 id="gradient-descent-title" class="mb-8 border-b-2">
+            Gradient descent
+          </h1>
           <p>
             We can think of gradient descent as an optimiser where it's trying
             to find the minimum value for some function.
@@ -177,8 +179,8 @@
       <AlphaPlot />
     </div>
     <div slot="foreground">
-      <section style="height: 100vh;" class="pl-8">
-        <article class="prose">
+      <section style="height: 100vh;" class="pl-12">
+        <article class="prose px-2">
           <h1 class="mt-12 mb-8 border-b-2">Introducing alpha</h1>
           <p class="mb-12">
             <span class="font-bold"
@@ -223,8 +225,8 @@
       </div>
     </div>
     <div slot="foreground">
-      <section class="pl-8">
-        <article class="prose mb-10">
+      <section class="pl-12">
+        <article class="prose mb-10 px-2">
           <h1 class="mt-12 mb-8 border-b-2">Gradient descent algorithm</h1>
           <GdCodeBlock />
           <p>Remember that:</p>

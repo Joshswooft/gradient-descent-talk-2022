@@ -4,6 +4,10 @@ html, body, canvas {
   margin: 0;
 }
 
+#burger-menu-container > button {
+	padding-left: 4px;
+}
+
 #app {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -76,7 +80,7 @@ svelte-scroller-background-container {
 
 @media (min-width: 992px) {
 	.splitscreen svelte-scroller-background {
-		width: calc(100% - 600px) !important;
+		width: calc(100% - 800px) !important;
 		min-width: 50%;
 		margin: 0 0 0 auto;
 	}
@@ -84,7 +88,7 @@ svelte-scroller-background-container {
 		opacity: 0;
 	}
 	.splitscreen [slot="foreground"] section {
-		width: 600px;
+		width: 800px;
 		max-width: 50%;
 		margin: 0 auto 0 0;
 		background-color: #fff;
