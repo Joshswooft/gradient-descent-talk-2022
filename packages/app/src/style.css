@@ -5,7 +5,8 @@ html, body, canvas {
 }
 
 #burger-menu-container > button {
-	padding-left: 4px;
+	padding-left: 20px;
+	padding-top: 20px;
 }
 
 #app {
@@ -83,6 +84,7 @@ svelte-scroller-background-container {
 		width: calc(100% - 800px) !important;
 		min-width: 50%;
 		margin: 0 0 0 auto;
+		padding-right: 4%;
 	}
 	.splitscreen [slot="foreground"] section div::before {
 		opacity: 0;
@@ -93,6 +95,10 @@ svelte-scroller-background-container {
 		margin: 0 auto 0 0;
 		background-color: #fff;
 	}
+	.splitscreen [slot="foreground"] > .section-container {
+		padding-left: 4%;
+	}
+
 	.splitscreen [slot="foreground"] .col-medium {
 		width: 100%;
 		margin: 0;	

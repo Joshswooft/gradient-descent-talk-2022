@@ -23,7 +23,7 @@
     </section>
   </div>
   <div slot="foreground">
-    <section>
+    <section class="section-container">
       <article class="prose pl-12">
         <h1 id="basics-title" class="mb-8 border-b-2">The basics</h1>
         <p>

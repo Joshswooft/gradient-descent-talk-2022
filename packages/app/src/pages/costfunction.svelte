@@ -16,7 +16,7 @@
     <SurfacePlot />
   </div>
   <div slot="foreground">
-    <section>
+    <section class="section-container">
       <article class="prose pl-12">
         <h1 id="cost-function-title" class="mb-8 border-b-2">Cost function</h1>
         <ul>

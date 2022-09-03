@@ -90,8 +90,8 @@
       </div>
     </div>
     <div slot="foreground">
-      <section class="pl-12">
-        <article class="px-2 prose">
+      <section class="section-container">
+        <article class="pl-12 prose">
           <h1 id="gradient-descent-title" class="mb-8 border-b-2">
             Gradient descent
           </h1>
@@ -179,8 +179,8 @@
       <AlphaPlot />
     </div>
     <div slot="foreground">
-      <section style="height: 100vh;" class="pl-12">
-        <article class="prose px-2">
+      <section style="height: 100vh;" class="section-container">
+        <article class="prose pl-12">
           <h1 class="mt-12 mb-8 border-b-2">Introducing alpha</h1>
           <p class="mb-12">
             <span class="font-bold"
@@ -208,7 +208,7 @@
     </div>
   </Scroller>
   <Divider />
-  <Scroller>
+  <Scroller splitscreen={true}>
     <div slot="background">
       <div class="w-1/2 left-1/2 ml-auto">
         <div class="text-center mt-16 top-10">
@@ -225,8 +225,8 @@
       </div>
     </div>
     <div slot="foreground">
-      <section class="pl-12">
-        <article class="prose mb-10 px-2">
+      <section class="section-container">
+        <article class="pl-12 prose mb-10">
           <h1 class="mt-12 mb-8 border-b-2">Gradient descent algorithm</h1>
           <GdCodeBlock />
           <p>Remember that:</p>
