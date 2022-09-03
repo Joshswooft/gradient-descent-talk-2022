@@ -16,6 +16,10 @@
     animateScroll.scrollTo({ element: "#basics-title", duration: 2000 });
   }
 
+  function goToCostFunction() {
+    animateScroll.scrollTo({ element: "#cost-function-title", duration: 2000 });
+  }
+
   function goToGD() {
     animateScroll.scrollTo({
       element: "#gradient-descent-title",
@@ -34,6 +38,9 @@
     >
       <button class="block py-2" on:click={goToHome}>Home</button>
       <button class="block py-2" on:click={goToBasics}>Basics</button>
+      <button class="block py-2" on:click={goToCostFunction}
+        >Cost function</button
+      >
       <button class="block py-2" on:click={goToGD}>Gradient descent</button>
     </BurgerMenu>
   </div>

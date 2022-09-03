@@ -18,7 +18,7 @@
   <div slot="foreground">
     <section>
       <article class="prose pl-12">
-        <h1 class="mb-8 border-b-2">Cost function</h1>
+        <h1 id="cost-function-title" class="mb-8 border-b-2">Cost function</h1>
         <ul>
           <li>Allows models to analyze how well it fits the data.</li>
           <li>Returns the cost which is the degree of error.</li>
