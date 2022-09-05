@@ -4,6 +4,23 @@
 
   import { link } from "svelte-spa-router";
   import { fade, fly } from "svelte/transition";
+
+  import * as animateScroll from "svelte-scrollto";
+
+  function goToBasics() {
+    animateScroll.scrollTo({ element: "#basics-title", duration: 2000 });
+  }
+
+  function goToCostFunction() {
+    animateScroll.scrollTo({ element: "#cost-function-title", duration: 2000 });
+  }
+
+  function goToGD() {
+    animateScroll.scrollTo({
+      element: "#gradient-descent-title",
+      duration: 2000,
+    });
+  }
 </script>
 
 <div class={"flex justify-center items-center h-full"}>
@@ -12,9 +29,9 @@
     >
     <h1>Linear Regression</h1>
     <nav class="my-5">
-      <a href="/basics" use:link>Learn the basics</a>
-      <a href="/costfunction/" use:link>Mean Square Error</a>
-      <a href="/gradientdescent/" use:link>Gradient Descent</a>
+      <button on:click={goToBasics}>Learn the basics</button>
+      <button on:click={goToCostFunction}>Mean Square Error</button>
+      <button on:click={goToGD}>Gradient Descent</button>
     </nav>
   </div>
   {#if showCallToActionButton}
