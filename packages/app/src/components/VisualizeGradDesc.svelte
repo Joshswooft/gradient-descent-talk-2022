@@ -8,7 +8,20 @@
   import * as d3 from "https://cdn.skypack.dev/d3@7";
 
   //   y = (x - 20)^2 + c
-  const y = (x, c) => (x - 20) * (x - 20) + c;
+  const convexY = (x, c) => (x - 20) * (x - 20) + c;
+  const cubicY = (x, c) => ((0.15 * x) ^ 3) + c;
+
+  $: y = (x, c) => (x - 20) * (x - 20) + c;
+
+  function setCubic() {
+    y = cubicY;
+    reset();
+  }
+
+  function setConvex() {
+    y = convexY;
+    reset();
+  }
 
   //   2(x - 20)
   const dy = (x) => 2 * (x - 20);
@@ -19,16 +32,16 @@
     height = 500;
 
   const xScale = d3.scaleLinear().domain([-30, 30]).range([0, width]);
-  const yScale = d3
+  $: yScale = d3
     .scaleLinear()
     .domain([y(-30, c), y(30, c)])
     .range([0, height]);
 
   const startX = xScale(-30);
-  const startY = yScale(y(-30, c));
+  $: startY = yScale(y(-30, c));
 
   const time = tweened(startX);
-  const value = tweened(startY);
+  $: value = tweened(startY);
 
   function reset() {
     value.set(startY, { duration: 0 });
@@ -36,7 +49,7 @@
     iterations = 0;
   }
 
-  const data = [
+  $: data = [
     { x: -30, y: y(-30, c) },
     { x: -20, y: y(-20, c) },
     { x: -10, y: y(-10, c) },
@@ -58,8 +71,6 @@
     .curve(d3.curveNatural)
     .x((d) => xScale(d.x))
     .y((d) => yScale(d.y))(data);
-
-  console.log("line: ", line_gen);
 
   function interpolate(a: number, b: number): (t: number) => number {
     return (t: number) => a * (1 - t) + b * t;
@@ -148,6 +159,13 @@
       </g>
     </g>
   </svg>
+  <div
+    class="mx-auto mt-8 grid grid-cols-2 items-center gap-8"
+    style="max-width: 200px;"
+  >
+    <button class="btn" on:click={setCubic}>cubic</button>
+    <button class="btn" on:click={setConvex}>convex</button>
+  </div>
 </div>
 
 <style>
