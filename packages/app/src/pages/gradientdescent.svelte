@@ -8,6 +8,7 @@
   import SurfacePlot from "../components/SurfacePlot.svelte";
   import Scroller from "../lib/Scroller.svelte";
   import Divider from "../components/Divider.svelte";
+  import surfacePlotImg from "../../static/surface_plot.png";
 
   const Jcost = `J(θ_0, θ_1)`;
   const simpleCostFnExample = `J(θ) = ${Jcost} = θ_0^2 + 3θ_1^2`;
@@ -87,6 +88,12 @@
           <p>$$y = (x - 20)^2 + c $$</p>
         </div>
         <SurfacePlot />
+        <img
+          width="500px"
+          class="mx-auto"
+          src={surfacePlotImg}
+          alt="surface plot"
+        />
       </div>
     </div>
     <div slot="foreground">
