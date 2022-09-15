@@ -6,25 +6,33 @@
   import { tweened } from "svelte/motion";
   import { cubicOut } from "svelte/easing";
   import * as d3 from "https://cdn.skypack.dev/d3@7";
+  import range from "../utils/range";
 
   //   y = (x - 20)^2 + c
   const convexY = (x, c) => (x - 20) * (x - 20) + c;
-  const cubicY = (x, c) => ((0.15 * x) ^ 3) + c;
+  const cubicY = (x, c) => -(x * x * x) - 3 * (x * x) + 500 * x + c;
 
   $: y = (x, c) => (x - 20) * (x - 20) + c;
 
   function setCubic() {
     y = cubicY;
+    dy = cubicDy;
     reset();
   }
 
   function setConvex() {
     y = convexY;
+    dy = convexDy;
     reset();
   }
 
   //   2(x - 20)
-  const dy = (x) => 2 * (x - 20);
+  const convexDy = (x) => 2 * (x - 20);
+  // - 3x^2 - 6x + 500
+  // minimum point is at x = -13.949
+  // saddle point is at x = 11.949
+  const cubicDy = (x) => -3 * (x * x) - 6 * x + 500;
+  $: dy = cubicDy;
 
   const c = 1000;
 
@@ -49,22 +57,7 @@
     iterations = 0;
   }
 
-  $: data = [
-    { x: -30, y: y(-30, c) },
-    { x: -20, y: y(-20, c) },
-    { x: -10, y: y(-10, c) },
-    { x: 0, y: y(0, c) },
-    { x: 10, y: y(10, c) },
-    { x: 20, y: y(20, c) },
-    { x: 30, y: y(30, c) },
-    { x: 40, y: y(40, c) },
-    { x: 50, y: y(50, c) },
-    { x: 60, y: y(60, c) },
-    { x: 70, y: y(70, c) },
-  ];
-
-  console.log("width: ", width);
-  console.log("height: ", height);
+  $: data = range(-30, 70, 1).map((x) => ({ x, y: y(x, c) }));
 
   $: line_gen = d3
     .line()
@@ -84,12 +77,12 @@
 
       await Promise.all([
         value.set(yScale(d.y), {
-          duration: 200,
+          duration: 20,
           interpolate: interpolate,
           // easing: cubicOut,
         }),
         time.set(xScale(d.x), {
-          duration: 200,
+          duration: 20,
           interpolate: interpolate,
           // easing: cubicOut,
         }),
@@ -97,6 +90,11 @@
       iterations--;
     }
   }
+
+  $: console.log(
+    "gradients: ",
+    data.map((d) => ({ x: d.x, gradient: dy(d.x) }))
+  );
 
   async function runAnimation() {
     console.log("run!");
@@ -109,18 +107,19 @@
 
       await Promise.all([
         value.set(yScale(d.y), {
-          duration: 200,
+          duration: 20,
           interpolate: interpolate,
           // easing: cubicOut,
         }),
         time.set(xScale(d.x), {
-          duration: 200,
+          duration: 20,
           interpolate: interpolate,
           // easing: cubicOut,
         }),
       ]);
       //   found the min point - stop the animation!
       //   note: this only works because we chose our x-values carefully :)
+      // TODO: update this so we can find for our cubic function
       if (grad == 0) {
         break;
       }
