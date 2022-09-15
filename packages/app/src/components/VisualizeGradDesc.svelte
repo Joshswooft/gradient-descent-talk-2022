@@ -128,6 +128,25 @@
     }
   }
 
+  async function setPoint(evt) {
+    const xScaled = +evt.target.value;
+    const x = xScale.invert(xScaled);
+    const yVal = yScale(y(x, c));
+
+    await Promise.all([
+      time.set(xScaled, {
+        duration: 200,
+        interpolate: interpolate,
+        // easing: cubicOut,
+      }),
+      value.set(yVal, {
+        duration: 200,
+        interpolate: interpolate,
+        // easing: cubicOut,
+      }),
+    ]);
+  }
+
   function playFromStart() {
     reset();
     runAnimation();
@@ -165,6 +184,14 @@
   >
     <button class="btn btn-sm btn-outline" on:click={setCubic}>cubic</button>
     <button class="btn btn-sm btn-outline" on:click={setConvex}>convex</button>
+  </div>
+  <div>
+    <input
+      type="range"
+      on:change={setPoint}
+      min={xScale(-30)}
+      max={xScale(70)}
+    />
   </div>
 </div>
 
