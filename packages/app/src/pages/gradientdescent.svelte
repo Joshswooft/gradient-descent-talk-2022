@@ -60,7 +60,7 @@
   const parallaxConfig = { stiffness: 1, damping: 1 };
 
   $: progress = 0;
-  const progressThreshold = 1.2;
+  const progressThreshold = 0.2;
 
   $: playGradientDescentGraphAnim = progress > progressThreshold;
   let scrollDirection = 0;
@@ -164,7 +164,7 @@
     </div>
   </Scroller>
   <Divider />
-  <Scroller splitscreen={true} bind:progress>
+  <Scroller splitscreen={true} bind:progress top={0.1}>
     <div slot="background">
       <div>
         <VisualizeGradDesc
