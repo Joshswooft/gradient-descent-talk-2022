@@ -163,8 +163,8 @@
     class="mx-auto mt-8 grid grid-cols-2 items-center gap-8"
     style="max-width: 200px;"
   >
-    <button class="btn" on:click={setCubic}>cubic</button>
-    <button class="btn" on:click={setConvex}>convex</button>
+    <button class="btn btn-sm btn-outline" on:click={setCubic}>cubic</button>
+    <button class="btn btn-sm btn-outline" on:click={setConvex}>convex</button>
   </div>
 </div>
 
