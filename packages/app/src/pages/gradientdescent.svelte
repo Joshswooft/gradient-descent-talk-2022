@@ -9,6 +9,8 @@
   import Scroller from "../lib/Scroller.svelte";
   import Divider from "../components/Divider.svelte";
   import surfacePlotImg from "../../static/surface_plot.png";
+  import slope1Img from "../../static/slope-dy-dx.svg";
+  import slope2Img from "../../static/slope-dy-dx2.svg";
 
   const Jcost = `J(θ_0, θ_1)`;
   const simpleCostFnExample = `J(θ) = ${Jcost} = θ_0^2 + 3θ_1^2`;
@@ -58,13 +60,16 @@
   const parallaxConfig = { stiffness: 1, damping: 1 };
 
   $: progress = 0;
+  const progressThreshold = 1.2;
 
-  $: playGradientDescentGraphAnim = progress > 0.15;
+  $: playGradientDescentGraphAnim = progress > progressThreshold;
   let scrollDirection = 0;
 
   function onWheel(evt) {
     scrollDirection = evt.deltaY;
   }
+
+  const dydxEquation = `Δy/Δx = f(x+Δx) − f(x) /Δx`;
 </script>
 
 <svelte:head>
@@ -75,25 +80,28 @@
 <svelte:window on:mousewheel={onWheel} />
 
 <div class="text-left py-8">
-  <Scroller splitscreen={true} bottom={1.5} bind:progress>
+  <Scroller splitscreen={true}>
     <div slot="background">
       <!-- background should contain the graphics -->
       <div>
         <div class="px-2">
-          <VisualizeGradDesc
-            play={playGradientDescentGraphAnim}
-            reverse={scrollDirection < 0}
+          <img
+            width="500px"
+            class="mx-auto mb-8"
+            src={surfacePlotImg}
+            alt="surface plot"
           />
-          <p class="text-center">Here's an example of a convex function:</p>
-          <p>$$y = (x - 20)^2 + c $$</p>
+          <img
+            class="mx-auto my-12"
+            src={slope1Img}
+            alt="slope showing dy/dx"
+          />
+          <img
+            class="mx-auto my-12"
+            src={slope2Img}
+            alt="slope showing f(x + h)"
+          />
         </div>
-        <SurfacePlot />
-        <img
-          width="500px"
-          class="mx-auto"
-          src={surfacePlotImg}
-          alt="surface plot"
-        />
       </div>
     </div>
     <div slot="foreground">
@@ -103,7 +111,7 @@
             Gradient descent
           </h1>
           <p>
-            We can think of gradient descent as an optimiser where it's trying
+            We can think of gradient descent as an <b>optimiser</b> where it's trying
             to find the minimum value for some function.
           </p>
           <p>
@@ -148,35 +156,56 @@
             can think of this as being a very small difference in the slope that
             shrinks towards zero! The equation becomes this:
           </p>
-          <!-- TODO: need a graph that explains this formulae -->
-          <p>$$ Δy/Δx = f(x+Δx) − f(x) /Δx $$</p>
+          <p>$$ {dydxEquation} $$</p>
           <p>y changes to $$ y = f(x + Δx) $$</p>
           <p>x changes to $$ x = x + Δx $$</p>
-          <p>
-            So taking our previous example of the \(y = (x - 20)^2 + c \) lets
-            calculate the derivative for this function. <span class="italic"
-              >(Note: calculating the derivative is called differentiation).</span
-            >
-          </p>
-          <p>$$ ((x + Δx - 20)^2 - (x-20)^2) / Δx $$</p>
-          <p class="italic">Note: the derivative of a constant is 0.</p>
-          <p>Expand</p>
-          <p>
-            $$ ([x^2 + xΔx -20x + xΔx + Δx^2 - 20Δx - 20x -20Δx + 400 ] - [x^2 -
-            40x + 400]) / Δx $$
-          </p>
-          <p>Simplify</p>
-          <p>
-            $$ ([x^2 + 2xΔx + Δx^2 - 40x - 40Δx + 400] - [x^2 - 40x + 400]) / Δx
-            $$
-          </p>
-          <p>Cancel out terms</p>
-          <p>$$ (Δx^2 + 2xΔx - 40Δx) / Δx $$</p>
-          <p>Divide and rearrange</p>
-          <p>$$ 2(x - 20) + Δx $$</p>
-          <p>Δx heads towards 0</p>
-          <p class="text-center">\( 2(x - 20) \)</p>
         </article>
+      </section>
+    </div>
+  </Scroller>
+  <Divider />
+  <Scroller splitscreen={true} bind:progress>
+    <div slot="background">
+      <div>
+        <VisualizeGradDesc
+          play={playGradientDescentGraphAnim}
+          reverse={scrollDirection < 0}
+        />
+        <p class="text-center">Here's an example of a convex function:</p>
+        <p>$$y = (x - 20)^2 + c $$</p>
+        <p class="text-center">Here's the previous equation as a reminder:</p>
+        <p>$$ {dydxEquation} $$</p>
+      </div>
+    </div>
+    <div slot="foreground">
+      <section style="height: 100vh;" class="section-container">
+        <h1 id="gradient-descent-title" class="mb-8 border-b-2">
+          Derivative example
+        </h1>
+        <p>
+          We will use the line \(y = (x - 20)^2 + c \) as our example to
+          calculate the derivative for. <span class="italic"
+            >(Note: calculating the derivative is called differentiation).</span
+          >
+        </p>
+        <p>$$ ((x + Δx - 20)^2 - (x-20)^2) / Δx $$</p>
+        <p class="italic">Note: the derivative of a constant is 0.</p>
+        <p>Expand</p>
+        <p>
+          $$ ([x^2 + xΔx -20x + xΔx + Δx^2 - 20Δx - 20x -20Δx + 400 ] - [x^2 -
+          40x + 400]) / Δx $$
+        </p>
+        <p>Simplify</p>
+        <p>
+          $$ ([x^2 + 2xΔx + Δx^2 - 40x - 40Δx + 400] - [x^2 - 40x + 400]) / Δx
+          $$
+        </p>
+        <p>Cancel out terms</p>
+        <p>$$ (Δx^2 + 2xΔx - 40Δx) / Δx $$</p>
+        <p>Divide and rearrange</p>
+        <p>$$ 2(x - 20) + Δx $$</p>
+        <p>Δx heads towards 0</p>
+        <p class="text-center">\( 2(x - 20) \)</p>
       </section>
     </div>
   </Scroller>
