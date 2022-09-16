@@ -179,33 +179,35 @@
     </div>
     <div slot="foreground">
       <section style="height: 100vh;" class="section-container">
-        <h1 id="gradient-descent-title" class="mb-8 border-b-2">
-          Derivative example
-        </h1>
-        <p>
-          We will use the line \(y = (x - 20)^2 + c \) as our example to
-          calculate the derivative for. <span class="italic"
-            >(Note: calculating the derivative is called differentiation).</span
-          >
-        </p>
-        <p>$$ ((x + Δx - 20)^2 - (x-20)^2) / Δx $$</p>
-        <p class="italic">Note: the derivative of a constant is 0.</p>
-        <p>Expand</p>
-        <p>
-          $$ ([x^2 + xΔx -20x + xΔx + Δx^2 - 20Δx - 20x -20Δx + 400 ] - [x^2 -
-          40x + 400]) / Δx $$
-        </p>
-        <p>Simplify</p>
-        <p>
-          $$ ([x^2 + 2xΔx + Δx^2 - 40x - 40Δx + 400] - [x^2 - 40x + 400]) / Δx
-          $$
-        </p>
-        <p>Cancel out terms</p>
-        <p>$$ (Δx^2 + 2xΔx - 40Δx) / Δx $$</p>
-        <p>Divide and rearrange</p>
-        <p>$$ 2(x - 20) + Δx $$</p>
-        <p>Δx heads towards 0</p>
-        <p class="text-center">\( 2(x - 20) \)</p>
+        <article class="pl-12 prose">
+          <h1 id="gradient-descent-title" class="mb-8 border-b-2">
+            Derivative example
+          </h1>
+          <p>
+            We will use the line \(y = (x - 20)^2 + c \) as our example to
+            calculate the derivative for. <span class="italic"
+              >(Note: calculating the derivative is called differentiation).</span
+            >
+          </p>
+          <p>$$ ((x + Δx - 20)^2 - (x-20)^2) / Δx $$</p>
+          <p class="italic">Note: the derivative of a constant is 0.</p>
+          <p>Expand</p>
+          <p>
+            $$ ([x^2 + xΔx -20x + xΔx + Δx^2 - 20Δx - 20x -20Δx + 400 ] - [x^2 -
+            40x + 400]) / Δx $$
+          </p>
+          <p>Simplify</p>
+          <p>
+            $$ ([x^2 + 2xΔx + Δx^2 - 40x - 40Δx + 400] - [x^2 - 40x + 400]) / Δx
+            $$
+          </p>
+          <p>Cancel out terms</p>
+          <p>$$ (Δx^2 + 2xΔx - 40Δx) / Δx $$</p>
+          <p>Divide and rearrange</p>
+          <p>$$ 2(x - 20) + Δx $$</p>
+          <p>Δx heads towards 0</p>
+          <p class="text-center">\( 2(x - 20) \)</p>
+        </article>
       </section>
     </div>
   </Scroller>
