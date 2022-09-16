@@ -8,31 +8,40 @@
   import * as d3 from "https://cdn.skypack.dev/d3@7";
   import range from "../utils/range";
 
-  //   y = (x - 20)^2 + c
-  const convexY = (x, c) => (x - 20) * (x - 20) + c;
-  const cubicY = (x, c) => -(x * x * x) - 3 * (x * x) + 500 * x + c;
+  const equations = {
+    cubic: {
+      y: (x, c) => -(x * x * x) - 3 * (x * x) + 500 * x + c,
+      // - 3x^2 - 6x + 500
+      // use quadratic formula to find critical points i.e. where gradient = 0
+      // minimum point is at x = -13.949
+      // saddle point is at x = 11.949
+      dy: (x) => -3 * (x * x) - 6 * x + 500,
+      criticalPoints: [-13.949, 11.949],
+    },
+    convex: {
+      //   y = (x - 20)^2 + c
+      y: (x, c) => (x - 20) * (x - 20) + c,
+      //   2(x - 20)
+      dy: (x) => 2 * (x - 20),
+      criticalPoints: [20],
+    },
+  };
 
-  $: y = (x, c) => (x - 20) * (x - 20) + c;
+  let isPlaying = false;
+
+  $: chosenEq = "convex";
+  $: y = equations[chosenEq].y;
+  $: dy = equations[chosenEq].dy;
 
   function setCubic() {
-    y = cubicY;
-    dy = cubicDy;
+    chosenEq = "cubic";
     reset();
   }
 
   function setConvex() {
-    y = convexY;
-    dy = convexDy;
+    chosenEq = "convex";
     reset();
   }
-
-  //   2(x - 20)
-  const convexDy = (x) => 2 * (x - 20);
-  // - 3x^2 - 6x + 500
-  // minimum point is at x = -13.949
-  // saddle point is at x = 11.949
-  const cubicDy = (x) => -3 * (x * x) - 6 * x + 500;
-  $: dy = cubicDy;
 
   const c = 1000;
 
@@ -72,6 +81,7 @@
   let iterations = 0;
 
   async function reverseAnim() {
+    isPlaying = true;
     while (iterations > 0) {
       const d = data[iterations - 1];
 
@@ -89,6 +99,7 @@
       ]);
       iterations--;
     }
+    isPlaying = false;
   }
 
   $: console.log(
@@ -98,6 +109,17 @@
 
   async function runAnimation() {
     console.log("run!");
+    isPlaying = true;
+    // direction of which way to follow the curve - we follow in direction where y is the least i.e. y is the error we wish to minimize
+    let direction = 1;
+    if (iterations < data.length && iterations > 0) {
+      const y1 = data[iterations - 1].y;
+      const y2 = data[iterations].y;
+
+      if (y1 < y2) {
+        direction = -1;
+      }
+    }
 
     // kind of a hacky way of animating as it goes through each point and draws straight line
     while (iterations < data.length) {
@@ -119,18 +141,27 @@
       ]);
       //   found the min point - stop the animation!
       //   note: this only works because we chose our x-values carefully :)
-      // TODO: update this so we can find for our cubic function
-      if (grad == 0) {
+      if (
+        grad == 0 ||
+        equations[chosenEq].criticalPoints.some((x) => Math.round(x) == d.x)
+      ) {
+        console.log("stopped on index: ", iterations);
         break;
       }
-      iterations++;
+      iterations += direction;
     }
+    isPlaying = false;
   }
 
   async function setPoint(evt) {
     const xScaled = +evt.target.value;
     const x = xScale.invert(xScaled);
     const yVal = yScale(y(x, c));
+
+    const index = data.findIndex((d) => d.x == Math.round(x));
+    if (index != -1) {
+      iterations = index;
+    }
 
     await Promise.all([
       time.set(xScaled, {
@@ -181,8 +212,21 @@
     class="mx-auto mt-8 grid grid-cols-2 items-center gap-8"
     style="max-width: 200px;"
   >
-    <button class="btn btn-sm btn-outline" on:click={setCubic}>cubic</button>
-    <button class="btn btn-sm btn-outline" on:click={setConvex}>convex</button>
+    <button
+      class:btn-disabled={chosenEq === "convex"}
+      class="btn btn-sm btn-outline"
+      on:click={setConvex}>convex</button
+    >
+    <button
+      class:btn-disabled={chosenEq === "cubic"}
+      class="btn btn-sm btn-outline"
+      on:click={setCubic}>cubic</button
+    >
+    <button
+      class:btn-disabled={isPlaying === true}
+      class="btn btn-sm btn-outline"
+      on:click={runAnimation}>Play</button
+    >
   </div>
   <div>
     <input
