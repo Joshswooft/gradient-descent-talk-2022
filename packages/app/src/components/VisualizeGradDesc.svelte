@@ -1,5 +1,5 @@
 <script lang="ts">
-  export let play: boolean;
+  export let shouldPlay: boolean;
   export let reverse: boolean;
 
   import Grid from "./Grid.svelte";
@@ -7,6 +7,19 @@
   import { cubicOut } from "svelte/easing";
   import * as d3 from "https://cdn.skypack.dev/d3@7";
   import range from "../utils/range";
+
+  const c = 1000;
+  const autoAlpha = "auto";
+  $: selectedAlpha = autoAlpha;
+  $: console.log("selected alpha: ", selectedAlpha);
+  let alphas = [0.01, 0.1, 0.8, autoAlpha];
+
+  function learn(fx, x: number, learning_rate = 0.01, h = 0.00001, cc = c) {
+    const delta = fx(x + h, cc) - fx(x, cc);
+    const slope = delta / h;
+
+    return { x: x - slope * learning_rate, slope };
+  }
 
   const equations = {
     cubic: {
@@ -43,8 +56,6 @@
     reset();
   }
 
-  const c = 1000;
-
   let width = 500,
     height = 500;
 
@@ -64,6 +75,7 @@
     value.set(startY, { duration: 0 });
     time.set(startX, { duration: 0 });
     iterations = 0;
+    isPlaying = false;
   }
 
   $: data = range(-30, 70, 1).map((x) => ({ x, y: y(x, c) }));
@@ -107,7 +119,53 @@
     data.map((d) => ({ x: d.x, gradient: dy(d.x) }))
   );
 
-  async function runAnimation() {
+  // run animation with gradient descent
+  async function runAnimationWithGD(alpha) {
+    isPlaying = true;
+    let foundMinimum = false;
+
+    let x = data[iterations].x;
+
+    let iters = 0;
+
+    while (!foundMinimum) {
+      const out = learn(equations[chosenEq].y, x, alpha);
+
+      x = out.x;
+      const grad = Math.floor(out.slope);
+      const yVal = equations[chosenEq].y(x, c);
+      // anim step
+
+      await Promise.all([
+        value.set(yScale(yVal), {
+          duration: 20,
+          interpolate: interpolate,
+          // easing: cubicOut,
+        }),
+        time.set(xScale(x), {
+          duration: 20,
+          interpolate: interpolate,
+          // easing: cubicOut,
+        }),
+      ]);
+
+      if (
+        grad == 0 ||
+        equations[chosenEq].criticalPoints.some(
+          (cx) => Math.round(cx) == Math.round(x)
+        ) ||
+        iters > 200 ||
+        x > 70
+      ) {
+        foundMinimum = true;
+        break;
+      }
+      iters++;
+    }
+    isPlaying = false;
+  }
+
+  async function moveThroughPoints() {
     console.log("run!");
     isPlaying = true;
     // direction of which way to follow the curve - we follow in direction where y is the least i.e. y is the error we wish to minimize
@@ -153,7 +211,16 @@
     isPlaying = false;
   }
 
+  async function runAnimation() {
+    if (selectedAlpha === autoAlpha) {
+      moveThroughPoints();
+      return;
+    }
+    runAnimationWithGD(selectedAlpha);
+  }
+
   async function setPoint(evt) {
+    isPlaying = false;
     const xScaled = +evt.target.value;
     const x = xScale.invert(xScaled);
     const yVal = yScale(y(x, c));
@@ -177,17 +244,12 @@
     ]);
   }
 
-  function playFromStart() {
-    reset();
-    runAnimation();
-  }
-
   // this brings reactivity to the component, when the play variable changes this block will execute.
-  $: if (play && reverse) {
+  $: if (shouldPlay && reverse) {
     reverseAnim();
   }
 
-  $: if (play && !reverse) {
+  $: if (shouldPlay && !reverse) {
     runAnimation();
   }
 </script>
@@ -209,8 +271,8 @@
     </g>
   </svg>
   <div
-    class="mx-auto mt-8 grid grid-cols-2 items-center gap-8"
-    style="max-width: 200px;"
+    class="mx-auto mt-8 mb-4 grid grid-cols-2 items-center gap-8"
+    style="max-width: 300px;"
   >
     <button
       class:btn-disabled={chosenEq === "convex"}
@@ -227,6 +289,13 @@
       class="btn btn-sm btn-outline"
       on:click={runAnimation}>Play</button
     >
+    <select bind:value={selectedAlpha} on:change={reset}>
+      {#each alphas as alpha}
+        <option value={alpha}>
+          alpha: {alpha}
+        </option>
+      {/each}
+    </select>
   </div>
   <div>
     <input

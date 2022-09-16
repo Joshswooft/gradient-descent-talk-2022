@@ -168,7 +168,7 @@
     <div slot="background">
       <div>
         <VisualizeGradDesc
-          play={playGradientDescentGraphAnim}
+          shouldPlay={playGradientDescentGraphAnim}
           reverse={scrollDirection < 0}
         />
         <p class="text-center">Here's an example of a convex function:</p>
