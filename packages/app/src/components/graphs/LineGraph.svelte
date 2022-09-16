@@ -7,6 +7,49 @@
   export let m = 2; // gradient
   export let c = 1; // y-intercept
 
+  const stddev = 0.9;
+
+  // Generates a normal distributed error.
+  const error = d3.randomNormal(0, stddev);
+
+  function getRandomPoint() {
+    var x = Math.round(Math.random() * xAxisScale.domain()[1]);
+    return {
+      x: x,
+      y: hypothesis(1, x, 3) + error(),
+    };
+  }
+
+  function initializePoints(num = 20) {
+    const result = [];
+    for (var i = 0; i < num; i++) {
+      const point = getRandomPoint();
+      point.id = "point-" + i;
+      result.push(point);
+    }
+    return result;
+  }
+
+  function appendPoints(group, points) {
+    group
+      .selectAll("circle")
+      .data(points)
+      .enter()
+      .append("circle")
+      .attr("id", function (d) {
+        return d.id;
+      })
+      .attr("cx", function (d) {
+        return xAxisScale(d.x);
+      })
+      .attr("cy", function (d) {
+        return yAxisScale(d.y);
+      })
+      .style("fill", "purple")
+      .style("opacity", 0.65)
+      .attr("r", 7);
+  }
+
   const margin = { top: 10, right: 130, bottom: 50, left: 60 },
     width = 800 - margin.left - margin.right,
     height = 400 - margin.top - margin.bottom;
@@ -104,8 +147,6 @@
     const wrapper = document.getElementById(id);
     let svg = wrapper.querySelector("svg");
 
-    console.log("svg: ", svg);
-
     if (!svg) {
       svg = d3
         .select("#" + id)
@@ -114,8 +155,6 @@
         .attr("height", height + margin.top + margin.bottom)
         .append("g")
         .attr("transform", `translate(${margin.left}, ${margin.top})`);
-
-      console.log("svg from d3: ", svg);
     } else {
       svg = d3.select(`#${id} svg`).selectChild("g");
     }
@@ -127,7 +166,6 @@
     const xAxisScale = d3.scaleLinear().domain([0, maxX]).range([0, width]);
 
     const existingXAxis = svg.select("#x-axis");
-    console.log(existingXAxis);
     existingXAxis.remove();
 
     svg
@@ -141,6 +179,9 @@
 
     const yAxisScale = d3.scaleLinear().domain([0, maxY]).range([height, 0]);
     svg.append("g").attr("id", "y-axis").call(d3.axisLeft(yAxisScale));
+
+    const points = initializePoints();
+    appendPoints(svg, points);
 
     const data = [];
 
@@ -200,8 +241,12 @@
     plotLineGraph(id, x, y);
   });
 
+  function hypothesis(m, x, c) {
+    return m * x + c;
+  }
+
   function createHypothesis(m, x, c) {
-    return x.map((xData) => m * xData + c);
+    return x.map((xData) => hypothesis(m, xData, c));
   }
 
   function onSliderChange(m, c, x) {
