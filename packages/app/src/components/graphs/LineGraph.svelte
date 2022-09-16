@@ -6,17 +6,20 @@
   export let id = "line_graph1";
   export let m = 2; // gradient
   export let c = 1; // y-intercept
+  export let hasAddedPoints = false;
 
-  const stddev = 0.9;
+  const stddev = 0.1;
 
   // Generates a normal distributed error.
   const error = d3.randomNormal(0, stddev);
 
   function getRandomPoint() {
-    var x = Math.round(Math.random() * xAxisScale.domain()[1]);
+    const x = Math.round(Math.random() * xAxisScale.domain()[1]);
+    const m = Math.round(Math.random() * 3);
+    const c = Math.round(Math.random() * 3);
     return {
       x: x,
-      y: hypothesis(1, x, 3) + error(),
+      y: hypothesis(m, x, c) + error(),
     };
   }
 
@@ -28,26 +31,6 @@
       result.push(point);
     }
     return result;
-  }
-
-  function appendPoints(group, points) {
-    group
-      .selectAll("circle")
-      .data(points)
-      .enter()
-      .append("circle")
-      .attr("id", function (d) {
-        return d.id;
-      })
-      .attr("cx", function (d) {
-        return xAxisScale(d.x);
-      })
-      .attr("cy", function (d) {
-        return yAxisScale(d.y);
-      })
-      .style("fill", "purple")
-      .style("opacity", 0.65)
-      .attr("r", 7);
   }
 
   const margin = { top: 10, right: 130, bottom: 50, left: 60 },
@@ -65,14 +48,18 @@
   const xAxisScale = d3.scaleLinear().domain([0, maxX]).range([0, width]);
   const yAxisScale = d3.scaleLinear().domain([0, maxY]).range([height, 0]);
 
-  function updatePlot(id, x, y, xAxisScale, yAxisScale) {
+  let points = initializePoints();
+
+  function updateDots(id, x, y) {
     let svg = d3.select(`#${id} svg`).selectChild("g");
 
-    let data = [];
+    let data = hasAddedPoints ? points : [];
 
-    // assumes x and y are equal length
-    for (let i = 0; i < x.length; i++) {
-      data.push({ x: x[i], y: y[i] });
+    if (!hasAddedPoints) {
+      // assumes x and y are equal length
+      for (let i = 0; i < x.length; i++) {
+        data.push({ x: x[i], y: y[i] });
+      }
     }
 
     const t = svg.transition().duration(750);
@@ -96,14 +83,14 @@
           .attr("cx", function (d) {
             return xAxisScale(d.x);
           })
-          .attr("r", 5)
+          .attr("r", 4)
           .call((enter) =>
             // transitions the data from the old y value to the new y value
             enter.transition(t).attr("cy", function (d) {
               return yAxisScale(d.y);
             })
           )
-          .style("fill", "gray")
+          .style("fill", "red")
           //   .merge(dotsSelection)
           .selection(),
       (update) =>
@@ -131,6 +118,20 @@
           e.transition(t).style("fill", "grey").style("opacity", 0).remove()
         )
     );
+  }
+
+  function updatePlot(id, x, y, xAxisScale, yAxisScale) {
+    let svg = d3.select(`#${id} svg`).selectChild("g");
+    const t = svg.transition().duration(750);
+
+    if (!hasAddedPoints) {
+      updateDots(id, x, y);
+    }
+
+    const hypothesisData = [
+      { x: 0, y: hypothesis(m, 0, c) },
+      { x: 7, y: hypothesis(m, 7, c) },
+    ];
 
     // update the line
     const line = d3.select("#hypothesis-line");
@@ -140,7 +141,10 @@
       .x((d) => xAxisScale(d.x))
       .y((d) => yAxisScale(d.y));
 
-    line.datum(data).transition(t).attr("d", lineFunc(data));
+    line
+      .datum(hypothesisData)
+      .transition(t)
+      .attr("d", lineFunc(hypothesisData));
   }
 
   function plotLineGraph(id, x, y, dotColor = "red", lineColor = "blue") {
@@ -180,14 +184,13 @@
     const yAxisScale = d3.scaleLinear().domain([0, maxY]).range([height, 0]);
     svg.append("g").attr("id", "y-axis").call(d3.axisLeft(yAxisScale));
 
-    const points = initializePoints();
-    appendPoints(svg, points);
+    let data = hasAddedPoints ? points : [];
 
-    const data = [];
-
-    // assumes x and y are equal length
-    for (let i = 0; i < x.length; i++) {
-      data.push({ x: x[i], y: y[i] });
+    if (!hasAddedPoints) {
+      // assumes x and y are equal length
+      for (let i = 0; i < x.length; i++) {
+        data.push({ x: x[i], y: y[i] });
+      }
     }
 
     const existingDots = svg.select("#dots");
@@ -223,12 +226,18 @@
     const existingLine = svg.select("#hypothesis-line");
     existingLine.remove();
     // Add line
+
+    const hypothesisData = [
+      { x: 0, y: hypothesis(m, 0, c) },
+      { x: 7, y: hypothesis(m, 7, c) },
+    ];
+
     svg
       .append("path")
-      .datum(data)
+      .datum(hypothesisData)
       .attr("stroke-dasharray", "1000 1000")
       .attr("stroke-dashoffset", "1000")
-      .attr("d", lineFunc(data))
+      .attr("d", lineFunc(hypothesisData))
       .attr("fill", "none")
       .attr("stroke", lineColor)
       .attr("id", "hypothesis-line")
@@ -255,6 +264,19 @@
   }
 
   $: onSliderChange(m, c, x);
+
+  function togglePoints() {
+    points = initializePoints();
+    hasAddedPoints = !hasAddedPoints;
+    updateDots(id, x, y);
+  }
 </script>
 
 <div {id} style="height: 400px" />
+<button on:click={togglePoints}>
+  {#if !hasAddedPoints}
+    Add points
+  {:else}
+    Remove points
+  {/if}
+</button>
