@@ -58,5 +58,9 @@
     <Costfunction />
     <Divider />
     <Gradientdescent />
+    <Divider />
+    <div class="h-screen grid justify-center content-center">
+      <a class="btn btn-lg" href="/example">Full example</a>
+    </div>
   </div>
 </main>

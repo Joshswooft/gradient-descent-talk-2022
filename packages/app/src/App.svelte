@@ -1,8 +1,12 @@
 <script lang="ts">
-  import Router from "svelte-spa-router";
-  import { routes } from "./pages/routes.config";
+  import { Router, Route } from "svelte-routing";
+  import Example from "./pages/example.svelte";
+  import Index from "./pages/index.svelte";
 </script>
 
 <main>
-  <Router {routes} />
+  <Router>
+    <Route path="/" component={Index} />
+    <Route path="/example" component={Example} />
+  </Router>
 </main>
