@@ -60,16 +60,34 @@
   </div>
   <div id={scatterId} />
   <p>Step 1: Create your features</p>
-  <Highlight language={typescript} code={`${createFeatures}`} />
+  <div class="block">
+    <Highlight language={typescript} code={`${createFeatures}`} />
+  </div>
   <p>Step 2: Perform gradient descent</p>
-  <Highlight language={typescript} code={`${gradientDescentMultiExample}`} />
+  <div class="block">
+    <Highlight language={typescript} code={`${gradientDescentMultiExample}`} />
+  </div>
   <p>Inner workings of gradient descent</p>
-  <Highlight language={typescript} code={`${gradientDescent}`} />
+  <div class="block">
+    <Highlight language={typescript} code={`${gradientDescent}`} />
+  </div>
   <p>Inner workings of our cost function</p>
-  <Highlight language={typescript} code={`${nonVectorizedMSE}`} />
+  <div class="block">
+    <Highlight language={typescript} code={`${nonVectorizedMSE}`} />
+  </div>
   <div id={learningPlotId} />
   <div class="p-8" style="color: red;">
     hypothesis = {formattedHypothesis}
   </div>
   <!-- <div id="learning_plot" /> -->
 </main>
+
+<style>
+  .block {
+    background: #0175ff;
+    padding: 1em;
+    border-radius: 0.375rem;
+    margin-top: 2em;
+    margin-bottom: 2em;
+  }
+</style>
