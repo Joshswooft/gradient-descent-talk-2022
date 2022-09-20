@@ -12,7 +12,7 @@
   const autoAlpha = "auto";
   $: selectedAlpha = autoAlpha;
   $: console.log("selected alpha: ", selectedAlpha);
-  let alphas = [0.01, 0.1, 0.8, autoAlpha];
+  let alphas = [0.01, 0.1, 1, autoAlpha];
 
   function learn(fx, x: number, learning_rate = 0.01, h = 0.00001, cc = c) {
     const delta = fx(x + h, cc) - fx(x, cc);

@@ -273,10 +273,12 @@
 </script>
 
 <div {id} style="height: 400px" />
-<button on:click={togglePoints}>
-  {#if !hasAddedPoints}
-    Add points
-  {:else}
-    Remove points
-  {/if}
-</button>
+<div class="grid mb-4 justify-center">
+  <button class="btn btn-outline btn-sm" on:click={togglePoints}>
+    {#if !hasAddedPoints}
+      Add points
+    {:else}
+      Remove points
+    {/if}
+  </button>
+</div>
