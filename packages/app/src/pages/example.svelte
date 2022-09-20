@@ -13,6 +13,10 @@
   import github from "svelte-highlight/styles/github";
   import gradientDescent from "../utils/gradient_descent";
   import { nonVectorizedMSE } from "../utils/mse";
+  import CodeBlock from "../components/CodeBlock.svelte";
+  import GdCodeBlock from "../components/GDCodeBlock.svelte";
+  import GdAlgCodeBlock from "../components/GdAlgCodeBlock.svelte";
+  import { modifiedMse } from "../utils/equations";
 
   let scatterId = "scatter-example";
   let learningPlotId = "learning-graph-example";
@@ -50,6 +54,8 @@
 
 <svelte:head>
   {@html github}
+  <script
+    src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 </svelte:head>
 
 <main class="container px-4">
@@ -67,13 +73,26 @@
   <div class="block">
     <Highlight language={typescript} code={`${gradientDescentMultiExample}`} />
   </div>
-  <p>Inner workings of gradient descent</p>
-  <div class="block">
-    <Highlight language={typescript} code={`${gradientDescent}`} />
+  <p class="mt-8">Inner workings of gradient descent</p>
+  <div class="flex gap-4 justify-evenly flex-row items-center">
+    <div class="block">
+      <Highlight language={typescript} code={`${gradientDescent}`} />
+    </div>
+    <div style="margin-top: 2em">
+      <GdCodeBlock />
+      <GdAlgCodeBlock />
+    </div>
   </div>
   <p>Inner workings of our cost function</p>
-  <div class="block">
-    <Highlight language={typescript} code={`${nonVectorizedMSE}`} />
+  <div class="flex gap-4 justify-evenly flex-row items-center">
+    <div class="block">
+      <Highlight language={typescript} code={`${nonVectorizedMSE}`} />
+    </div>
+    <div class="mt-8">
+      <CodeBlock>
+        <p>$$ {modifiedMse} $$</p>
+      </CodeBlock>
+    </div>
   </div>
   <div id={learningPlotId} />
   <div class="p-8" style="color: red;">
