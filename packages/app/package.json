@@ -34,6 +34,7 @@
     "plotly.js-dist-min": "^2.14.0",
     "svelte-burger-menu": "^1.0.5",
     "svelte-canvas": "^0.7.1",
+    "svelte-inview": "^3.0.1",
     "svelte-parallax": "^0.6.0",
     "svelte-spa-router": "^3.3.0"
   }

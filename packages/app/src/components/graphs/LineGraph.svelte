@@ -2,6 +2,7 @@
   import { onMount } from "svelte";
   // @ts-ignore
   import * as d3 from "https://cdn.skypack.dev/d3@7";
+  import { inview } from "svelte-inview";
 
   export let id = "line_graph1";
   export let m = 2; // gradient
@@ -147,7 +148,7 @@
       .attr("d", lineFunc(hypothesisData));
   }
 
-  function plotLineGraph(id, x, y, dotColor = "red", lineColor = "blue") {
+  function getOrMakeNewSvg(id) {
     const wrapper = document.getElementById(id);
     let svg = wrapper.querySelector("svg");
 
@@ -162,6 +163,11 @@
     } else {
       svg = d3.select(`#${id} svg`).selectChild("g");
     }
+    return svg;
+  }
+
+  function plotAxis(id, x, y) {
+    const svg = getOrMakeNewSvg(id);
 
     const maxX = Math.max(...x);
     const maxY = Math.max(...y);
@@ -183,6 +189,10 @@
 
     const yAxisScale = d3.scaleLinear().domain([0, maxY]).range([height, 0]);
     svg.append("g").attr("id", "y-axis").call(d3.axisLeft(yAxisScale));
+  }
+
+  function plotLineGraph(id, x, y, dotColor = "red", lineColor = "blue") {
+    const svg = getOrMakeNewSvg(id);
 
     let data = hasAddedPoints ? points : [];
 
@@ -247,7 +257,7 @@
       .attr("stroke-dashoffset", 0);
   }
   onMount(async () => {
-    plotLineGraph(id, x, y);
+    plotAxis(id, x, y);
   });
 
   function hypothesis(m, x, c) {
@@ -270,9 +280,13 @@
     hasAddedPoints = !hasAddedPoints;
     updateDots(id, x, y);
   }
+
+  function onEnterAnimation() {
+    plotLineGraph(id, x, y);
+  }
 </script>
 
-<div {id} style="height: 400px" />
+<div {id} use:inview on:enter={onEnterAnimation} style="height: 400px" />
 <div class="grid mb-4 justify-center">
   <button class="btn btn-outline btn-sm" on:click={togglePoints}>
     {#if !hasAddedPoints}
