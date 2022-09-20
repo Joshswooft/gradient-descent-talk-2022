@@ -12,11 +12,6 @@ export default function meanSquareError(hypothesis, y) {
 
 // the same as `meanSquareError()` but less performant
 export function nonVectorizedMSE(y_hat, y) {
-  if (y.length != y_hat.length) {
-    throw new Error(
-      "length of predicted values doesnt match output values length"
-    );
-  }
   let error = 0;
   for (let i = 0; i < y.length; i++) {
     const diff = y_hat[i] - y[i];

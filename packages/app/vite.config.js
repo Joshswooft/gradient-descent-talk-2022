@@ -5,7 +5,10 @@ import { svelte } from "@sveltejs/vite-plugin-svelte";
 
 export default defineConfig({
   plugins: [svelte()],
-  optimizeDeps: { exclude: ["svelte-navigator"] },
+  optimizeDeps: {
+    include: ["highlight.js", "highlight.js/lib/core"],
+    exclude: ["svelte-navigator"],
+  },
   build: {
     minify: "esbuild",
     target: "esnext",

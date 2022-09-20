@@ -3,12 +3,18 @@
   import CodeBlock from "../components/CodeBlock.svelte";
   import SurfacePlot from "../components/SurfacePlot.svelte";
   import { mse, modifiedMse } from "../utils/equations";
+  import { nonVectorizedMSE } from "../utils/mse";
+
+  import Highlight from "svelte-highlight";
+  import typescript from "svelte-highlight/languages/typescript";
+  import github from "svelte-highlight/styles/github";
 </script>
 
 <svelte:head>
   <script
     src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
   </script>
+  {@html github}
 </svelte:head>
 
 <Scroller splitscreen={true} bottom={0.7}>
@@ -44,6 +50,7 @@
           We use a slightly modified MSE (notice the 2n term). The reason for
           this is it makes the maths easier when it comes to differentiation.
         </p>
+        <Highlight language={typescript} code={`${nonVectorizedMSE}`} />
       </article>
     </section>
   </div>
