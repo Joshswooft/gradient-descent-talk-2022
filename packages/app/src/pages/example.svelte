@@ -41,7 +41,6 @@
     // add 'c' term
     keys.unshift("c");
 
-    console.log("keys; ", keys);
     thetas.map((param, index) => {
       hyp += `${param} * ${keys[index]}`;
       if (index < thetas.length - 1) {

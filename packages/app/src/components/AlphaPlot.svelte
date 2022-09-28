@@ -25,12 +25,9 @@
     num_iterations
   );
 
-  console.log("gradDescentResult: ", gradDescentResult);
-
   $: alpha_plot && updateAnim(selectedAlpha, num_iterations);
 
   function updateAnim(selectedAlpha, num_iterations) {
-    console.log("updating: ", { selectedAlpha, num_iterations });
     const frames = [createData(selectedAlpha, X, theta, Y, num_iterations)];
     Plotly.animate("alpha_plot", frames, { redraw: false });
 
@@ -100,8 +97,6 @@
   }
 
   const { t, Jerror, thetaHistory } = gradDescentResult;
-  console.log("Jerr: ", Jerror);
-  console.log("thetaHistory: ", thetaHistory);
 
   const initialFrameData = createData(0.01, X, theta, Y, num_iterations);
 
@@ -134,7 +129,6 @@
   };
 
   const hyp = hypothesis(X, t);
-  console.log("hyp: ", hyp);
 
   onMount(() => {
     // plot hypothesis vs y-values

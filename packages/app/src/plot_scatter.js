@@ -24,8 +24,6 @@ export default async function plotScatterDiagram(id, url) {
 
   //Read the data
   d3.json(url).then(function (data) {
-    console.log("data: ", data);
-
     const featureName = "X2 house age";
     const yName = "Y house price of unit area";
 
@@ -82,7 +80,6 @@ export default async function plotScatterDiagram(id, url) {
     const predictions = hypothesis(X, t);
     const y_hats = predictions.toArray();
     const err = meanSquareError(sparse(y_hats), sparse(ys));
-    console.log("MSE: ", err);
 
     plotLearningGraph("learning_plot", Jerror);
 

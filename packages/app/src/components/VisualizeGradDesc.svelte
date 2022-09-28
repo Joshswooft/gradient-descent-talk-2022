@@ -11,7 +11,6 @@
   const c = 1000;
   const autoAlpha = "auto";
   $: selectedAlpha = autoAlpha;
-  $: console.log("selected alpha: ", selectedAlpha);
   let alphas = [0.01, 0.1, 1, autoAlpha];
 
   function learn(fx, x: number, learning_rate = 0.01, h = 0.00001, cc = c) {
@@ -114,11 +113,6 @@
     isPlaying = false;
   }
 
-  $: console.log(
-    "gradients: ",
-    data.map((d) => ({ x: d.x, gradient: dy(d.x) }))
-  );
-
   // run animation with gradient descent
   async function runAnimationWithGD(alpha) {
     isPlaying = true;
@@ -166,7 +160,6 @@
   }
 
   async function moveThroughPoints() {
-    console.log("run!");
     isPlaying = true;
     // direction of which way to follow the curve - we follow in direction where y is the least i.e. y is the error we wish to minimize
     let direction = 1;
@@ -203,7 +196,6 @@
         grad == 0 ||
         equations[chosenEq].criticalPoints.some((x) => Math.round(x) == d.x)
       ) {
-        console.log("stopped on index: ", iterations);
         break;
       }
       iterations += direction;

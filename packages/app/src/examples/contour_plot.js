@@ -63,8 +63,6 @@ export default function contourPlotExample(id) {
     },
   ];
 
-  console.log("contour data: ", contourData);
-
   const layout = {
     title: "J(theta0, theta1)",
     xaxis: {

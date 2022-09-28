@@ -12,7 +12,6 @@
 
   onMount(() => {
     ctx = canvas.getContext("2d");
-    console.log("ctx: ", ctx);
     // init(ctx);
   });
 
@@ -23,7 +22,6 @@
   //   }
 
   const setup = ({ context, width, height }) => {
-    console.log("width: ", width, "height: ", height);
     r = width / 2 - 40;
     context.translate(width / 2, height / 2);
   };
@@ -70,7 +68,6 @@
       return;
     }
 
-    console.log("c: ", ctx);
     ctx.fillStyle = "black";
     ctx.fillRect(-width / 2, -height / 2, width, height);
 
