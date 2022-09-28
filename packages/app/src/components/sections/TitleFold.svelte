@@ -2,7 +2,6 @@
   export let onCallToActionHandler;
   export let showCallToActionButton: boolean = true;
 
-  import { link } from "svelte-spa-router";
   import { fade, fly } from "svelte/transition";
 
   import * as animateScroll from "svelte-scrollto";
