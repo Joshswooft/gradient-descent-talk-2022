@@ -19,7 +19,7 @@
   const partial = (x) => `\\frac{∂}{∂θ_${x}}`;
   const partialJ = (x) => `${partial(x)}${Jcost} = `;
   const simpleJDerivative = (x) =>
-    `${partialJ(x)}${partial(1)}θ_0 + ${partial(2)}3θ_1^2 = `;
+    `${partialJ(x)}${partial(0)}θ_0^2 + ${partial(1)}3θ_1^2 = `;
 
   const d1 = `{ \\sum_{i=1}^{n} ${partial(
     "j"
@@ -55,9 +55,6 @@
 
   const updateTheta0 = `θ_0 := θ_0 - \\alpha( { \\frac {1}{n}} \\sum_{i=1}^{n}${gx} )`;
   const updateTheta1 = `θ_1 := θ_1 - \\alpha( {\\frac {1}{n}} \\sum_{i=1}^{n}(${gx})x_1 )`;
-
-  let parallax;
-  const parallaxConfig = { stiffness: 1, damping: 1 };
 
   $: progress = 0;
   const progressThreshold = 0.2;
@@ -286,6 +283,11 @@
             we let just one of those variables change while holding all the
             others constant.
           </p>
+          <i
+            >∂ = partial derivative. Basically we do the derivative on the
+            variable we wish to look at whilst holding the other variable
+            constant, meaning it disappears when we calculate the derivative.</i
+          >
           <h2>Patial derivative example</h2>
           <p>
             For a simple example, lets assume our cost function looks like this:
@@ -300,8 +302,14 @@
 
           <p>Now we calculate the partial derivatives of these 2 equations:</p>
           <CodeBlock>
-            <p>$$ {simpleJDerivative(1)} 2θ_0$$</p>
-            <p>$$ {simpleJDerivative(2)} 6θ_1$$</p>
+            <p>$$ {simpleJDerivative(0)} $$</p>
+            <p>$$ {partial(0)}θ_0^2 + 0 = 2θ_0$$</p>
+            <p>$$ {simpleJDerivative(1)} $$</p>
+            <p>$$ 0 + {partial(1)}3θ_1^2 = 6θ_1$$</p>
+          </CodeBlock>
+          <CodeBlock>
+            <p>$$ {simpleJDerivative(0)} 2θ_0$$</p>
+            <p>$$ {simpleJDerivative(1)} 6θ_1$$</p>
           </CodeBlock>
           <p>
             Lets stick this back into our original gradient descent algorithm to
@@ -328,6 +336,11 @@
             <CodeBlock>
               <p>$$ {Jcost} = {modifiedMse} $$</p>
             </CodeBlock>
+            <p>$$ {partial(0)}{Jcost}$$</p>
+            <p>
+              We are trying to work out the derivative of the above cost
+              function!
+            </p>
             <p>1. Apply the sum rule</p>
             <p>1. \({d1} \)</p>
             <p>2. Multiplication by constant</p>
