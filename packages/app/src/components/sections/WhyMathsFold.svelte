@@ -7,7 +7,7 @@
     Why do we need maths?
   </h1>
   <div class="flex justify-center">
-    <ul class="flex gap-8 flex-col text-left list-disc">
+    <ul class="flex gap-8 flex-col text-left list-disc text-lg">
       <li>Be able to debug problems easier</li>
       <li>Understand how to tune models for greater performance/speed</li>
       <li>Being able to interpret results</li>
