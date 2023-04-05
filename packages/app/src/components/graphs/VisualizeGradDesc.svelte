@@ -2,11 +2,11 @@
   export let shouldPlay: boolean;
   export let reverse: boolean;
 
-  import Grid from "./Grid.svelte";
+  import Grid from "../Grid.svelte";
   import { tweened } from "svelte/motion";
   import { cubicOut } from "svelte/easing";
   import * as d3 from "https://cdn.skypack.dev/d3@7";
-  import range from "../utils/range";
+  import range from "../../utils/range";
 
   const c = 1000;
   const autoAlpha = "auto";

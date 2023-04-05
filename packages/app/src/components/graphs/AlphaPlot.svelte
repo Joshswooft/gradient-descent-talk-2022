@@ -1,9 +1,9 @@
 <script>
   import { sparse, transpose, ones, matrix, min } from "mathjs";
-  import gradientDescent from "../utils/gradient_descent";
+  import gradientDescent from "../../utils/gradient_descent";
   import { onMount } from "svelte";
   import Plotly from "plotly.js-dist-min";
-  import { hypothesis } from "../utils/hypothesis";
+  import { hypothesis } from "../../utils/hypothesis";
 
   // y = 2x + 5
   const xs = [0, 1, 2, 3, 4, 5];

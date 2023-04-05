@@ -1,10 +1,10 @@
 <script>
   import GdCodeBlock from "../components/codeBlocks/GDCodeBlock.svelte";
   import CodeBlock from "../components/codeBlocks/CodeBlock.svelte";
-  import VisualizeGradDesc from "../components/VisualizeGradDesc.svelte";
+  import VisualizeGradDesc from "../components/graphs/VisualizeGradDesc.svelte";
   import { chainRule, modifiedMse, powerRule } from "../utils/equations";
   import { simpleLinearRegression } from "../utils/equations";
-  import AlphaPlot from "../components/AlphaPlot.svelte";
+  import AlphaPlot from "../components/graphs/AlphaPlot.svelte";
   import Scroller from "../lib/Scroller.svelte";
   import Divider from "../components/Divider.svelte";
   import surfacePlotImg from "../../static/surface_plot.png";
