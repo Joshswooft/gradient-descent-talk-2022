@@ -3,16 +3,25 @@
   import CodeBlock from "../components/CodeBlock.svelte";
   import SurfacePlot from "../components/SurfacePlot.svelte";
   import { mse, modifiedMse } from "../utils/equations";
-  import { nonVectorizedMSE } from "../utils/mse";
 
   import Highlight from "svelte-highlight";
   import typescript from "svelte-highlight/languages/typescript";
   import github from "svelte-highlight/styles/github";
+
+  let code = `function nonVectorizedMSE(y_hat, y) {
+    let error = 0;
+    for (let i = 0; i < y.length; i++) {
+      const diff = y_hat[i] - y[i];
+      error += diff * diff;
+    }
+    return error / (2 * y.length);
+  };`;
 </script>
 
 <svelte:head>
   <script
-    src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+    src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"
+  >
   </script>
   {@html github}
 </svelte:head>
@@ -50,7 +59,7 @@
           We use a slightly modified MSE (notice the 2n term). The reason for
           this is it makes the maths easier when it comes to differentiation.
         </p>
-        <Highlight language={typescript} code={`${nonVectorizedMSE}`} />
+        <Highlight language={typescript} {code} langtag />
       </article>
     </section>
   </div>
