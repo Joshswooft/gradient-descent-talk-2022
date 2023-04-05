@@ -1,11 +1,10 @@
 <script>
-  import GdCodeBlock from "../components/GDCodeBlock.svelte";
-  import CodeBlock from "../components/CodeBlock.svelte";
+  import GdCodeBlock from "../components/codeBlocks/GDCodeBlock.svelte";
+  import CodeBlock from "../components/codeBlocks/CodeBlock.svelte";
   import VisualizeGradDesc from "../components/VisualizeGradDesc.svelte";
   import { chainRule, modifiedMse, powerRule } from "../utils/equations";
   import { simpleLinearRegression } from "../utils/equations";
   import AlphaPlot from "../components/AlphaPlot.svelte";
-  import SurfacePlot from "../components/SurfacePlot.svelte";
   import Scroller from "../lib/Scroller.svelte";
   import Divider from "../components/Divider.svelte";
   import surfacePlotImg from "../../static/surface_plot.png";
@@ -71,7 +70,8 @@
 
 <svelte:head>
   <script
-    src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"
+  ></script>
 </svelte:head>
 
 <svelte:window on:mousewheel={onWheel} />

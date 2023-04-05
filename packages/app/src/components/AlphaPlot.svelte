@@ -59,8 +59,6 @@
       y: Jerror,
     };
 
-    // TODO: is there a way to mark the begining and end markers?
-
     Plotly.animate(
       "test",
       {

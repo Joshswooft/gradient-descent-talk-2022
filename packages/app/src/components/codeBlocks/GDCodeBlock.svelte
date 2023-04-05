@@ -1,6 +1,6 @@
 <script>
   import CodeBlock from "./CodeBlock.svelte";
-  import { gradientDescentAlg } from "../utils/equations";
+  import { gradientDescentAlg } from "../../utils/equations";
 
   export let alg = `\\(${gradientDescentAlg}\\)`;
 </script>

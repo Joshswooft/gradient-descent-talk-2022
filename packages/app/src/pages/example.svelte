@@ -13,9 +13,9 @@
   import github from "svelte-highlight/styles/github";
   import gradientDescent from "../utils/gradient_descent";
   import { nonVectorizedMSE } from "../utils/mse";
-  import CodeBlock from "../components/CodeBlock.svelte";
-  import GdCodeBlock from "../components/GDCodeBlock.svelte";
-  import GdAlgCodeBlock from "../components/GdAlgCodeBlock.svelte";
+  import CodeBlock from "../components/codeBlocks/CodeBlock.svelte";
+  import GdCodeBlock from "../components/codeBlocks/GDCodeBlock.svelte";
+  import GdAlgCodeBlock from "../components/codeBlocks/GdAlgCodeBlock.svelte";
   import { modifiedMse } from "../utils/equations";
 
   let scatterId = "scatter-example";
@@ -54,7 +54,8 @@
 <svelte:head>
   {@html github}
   <script
-    src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"
+  ></script>
 </svelte:head>
 
 <main class="container px-4">

@@ -1,6 +1,6 @@
 <script>
   import Scroller from "../lib/Scroller.svelte";
-  import CodeBlock from "../components/CodeBlock.svelte";
+  import CodeBlock from "../components/codeBlocks/CodeBlock.svelte";
   import LineGraph from "../components/graphs/LineGraph.svelte";
   import LineGraphControls from "../components/graphs/LineGraphControls.svelte";
   import LinearRegressionFold from "../components/sections/linear-regression/LinearRegressionFold.svelte";
@@ -12,7 +12,8 @@
 
 <svelte:head>
   <script
-    src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"
+  ></script>
 </svelte:head>
 
 <Scroller splitscreen={true} id="basics-scroller">

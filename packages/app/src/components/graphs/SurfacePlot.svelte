@@ -2,8 +2,8 @@
   import { onMount } from "svelte";
   import Plotly from "plotly.js-dist-min";
   import { sparse, transpose, matrix, ones } from "mathjs";
-  import { hypothesis } from "../utils/hypothesis";
-  import meanSquareError from "../utils/mse";
+  import { hypothesis } from "../../utils/hypothesis";
+  import meanSquareError from "../../utils/mse";
 
   // y = 2x + 5
   const xs = [0, 1, 2, 3, 4, 5];

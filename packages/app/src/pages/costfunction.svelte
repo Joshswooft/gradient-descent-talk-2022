@@ -1,7 +1,7 @@
 <script>
   import Scroller from "../lib/Scroller.svelte";
-  import CodeBlock from "../components/CodeBlock.svelte";
-  import SurfacePlot from "../components/SurfacePlot.svelte";
+  import CodeBlock from "../components/codeBlocks/CodeBlock.svelte";
+  import SurfacePlot from "../components/graphs/SurfacePlot.svelte";
   import { mse, modifiedMse } from "../utils/equations";
 
   import Highlight from "svelte-highlight";
